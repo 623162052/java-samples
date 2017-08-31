@@ -1,0 +1,69 @@
+-------------------------------------
+Object类中的hashCode()的方法是所有类都会继承的方法，这个方法会算出一个Hash码值返回，HashSet会用Hash码值去和数组长度取模，
+对象的模值(这个模值就是对象要存放在数组中的位置，和数组的下标相同)相同时才会判断数组中的元素和要加入的对象的内容是否相同，
+如果不同才会再找位置添加进去，相同则不允许添加。
+如果数组中的元素和要加入的对象的hashCode()返回了相同的Hash码值，才会用equals()方法来判断两个对象的内容是否相同。
+注意：要存入HashSet的集合对象中的自定义类必须覆盖hashCode()、equals()两个方法，才能保证集合中元素不重复。
+
+
+ 【使用泛型后，就不需要强制类型转换】
+	java.util
+	三大块List,Map,Set
+	泛型 限定类型
+	继承与实现：
+		Iterable->Collection|->List|->ArrayList(线性表)   [有序，可重复]	非线程安全	
+							|      |->Vector(迭代器)      [有序，可重复]	线程安全
+		                    |      |->LinkedList(双向链表)    [有序，可重复]
+		                    |
+		                    |->Set |->HashSet       [无序，不可重复]
+		                    |      |->EnumSet       [无序，不可重复]
+		                    |      |->TreeSet       [扩展类：有序，不可重复]
+		                    |      |->LinkedHashSet [扩展类：有序，不可重复]
+							|	   
+							|->Queue	   
+		                           
+		Map|->HashMap         	[无序，key不可重复]  非线程安全
+		   |->EnumMap           [无序，key不可重复]
+		   |->HashTable       	[无序，key不可重复]	 线程安全
+	       |->WeakHashMap     	[无序，key不可重复]
+		   |->IdentityHashMap 	[无序，key可重复]
+		   |->LinkedHashMap   	[扩展类：有序，key不可重复]
+		   |->TreeMap         	[扩展类：有序，key不可重复]
+		   
+		   Link,Tree开头的都是有序
+		   
+		   
+哈希算法：快速查找数据
+
+-------------------------------------
+Queue   Deque
+			Queue
+				offer()			在末尾添加数据
+				poll()			在头部移除数据
+				peek()			访问头部数据
+			Deque extends Queue
+				push()			在头部压入数据
+				pop()			移除头部数据
+		
+		LinkedList implements Queue, Deque 	
+
+		
+
+Queue（接口）: 队列【在队列尾部添加元素，在队列头部删除元素（先进先出）】
+	LinkedList：双向链表【高效的插入删除】
+	散列表【HashTable】：	想查找每个指定的元素，但不知道位置，因此就要访问所有元素，直到找到
+							散列表无法控制元素出现的次序，将按照有利于操作目的的原则组织数据
+							快速查找所需的对象
+							HashTable为每个对象计算一个整数（Hash code）		
+
+
+-----------------------------------------------------------------
+集合工具类  Collections
+		addAll();
+		max()
+		min()
+		reverse()
+		sort()			//List中的数据必须实现Compareable接口
+		sort(List, Comparator)	//
+		swap(List, index1, index2);		//交换
+

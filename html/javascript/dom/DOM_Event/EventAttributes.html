@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Event Attributes</title>
+<script type="text/javascript">
+	function isKeyPressed(event){
+		//返回当事件被触发时，"ALT" 是否被按下
+		//event.altKey=true|false|1|0
+		
+		//ctrlKey 事件属性可返回一个布尔值，指示当事件发生时，Ctrl 键是否被按下并保持住
+		//event.ctrlKey=true|false|1|0
+		
+		//shiftKey 事件属性可返回一个布尔值，指示当事件发生时，"SHIFT" 键是否被按下并保持住
+		//event.shiftKey=true|false|1|0
+		alert(event.altKey + " - " + event.ctrlKey + " - " + event.shiftKey);	
+	}
+	
+	
+	//clientX:	返回当事件被触发时，鼠标指针的水平坐标
+	//clientY:	返回当事件被触发时，鼠标指针的垂直坐标
+	//screenX 事件属性可返回事件发生时鼠标指针相对于屏幕的水平坐标
+	//screenY 事件属性可返回事件发生时鼠标指针相对于屏幕的垂直坐标
+	function show_coords(event){
+		alert(event.clientX + " - " + event.clientY + " - " + event.screenX + " - " + event.screenY);
+  	}
+
+</script>
+	
+</head>
+
+<body >
+	<input type="text" value="event_altKey" onclick="isKeyPressed(event);" />
+	<input type="text" value="event_clientX_clientY" onclick="show_coords(event);" />
+</body>
+</html>

@@ -1,0 +1,49 @@
+
+  应用层的协议（TCP）
+  请求、响应的模式，无状态的协议（requst/response based,stateless protocol）
+  1.0: 当建立连接后，浏览器发送一个请求，服务器做出一个响应的信息，之后连接被断开
+  1.1：持久连接（Persistent Connections）
+  格式：
+      http://host[:port][uri]   
+      host:域名或是ip地址
+      port：端口   （默认80端口）
+      uri：uniform resource Identifier （mailto:shiyl@tarena.com.cn）   
+      URL： uniform resource Locator  是一种特殊的URI
+  HTTP协议的请求：请求行  请求头信息  请求的正文
+            响应：状态行  消息报头  响应的正文        
+-------------------------------------------------------------------------------------
+7.servlet的开发步骤
+
+  1）新建一个类  extends  HttpServlet
+  2）覆盖service方法
+  3）配置web.xml   
+8.servlet的生命周期
+  1）服务器加载servlet
+  2）服务器创建servlet的实例
+  3）调用servlet实例的init方法
+  4）客户端对servlet发出请求
+  5）调用service方法
+  6） destroy方法
+  7）服务器servlet卸载
+  4），5）是循环的过程
+9.init  service destroy 的调用时机
+  init方法：
+      默认第一次调用servlet的时候，创建servlet的实例，调用servlet实例的init方法
+      设置<load-on-startup> 大于等于零  服务器启动的时候，创建servlet的实例，
+        调用servlet实例的init方法
+      <load-on-startup>可以控制servlet实例创建的顺序，0最先创建 
+   init(ServletConfig config)：
+     1）获取到初始化参数
+     2）可以获取到ServletContext的实例
+  service方法：有请求发出的时候
+  destroy方法：服务器关闭时，会调用destroy方法 ，卸载servlet。
+               servlet很长时间没有被使用，服务器在卸载servlet之前调用destroy方法
+10.doGet: 1)直接在地址栏输入访问
+          2）超链接
+          3）<form method="get">
+   doPost:
+           <form method="post">
+11.Servlet的多线程问题：尽量不要使用成员变量，而是使用局部变量
+12.request->HttpServletRequest
+   request.getParameter(String str);
+   

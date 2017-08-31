@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Untitled Document</title>
+		<script type="text/javascript" src="../lib/jquery-1.6.1.js"></script>
+		<script type="text/javascript">
+			/*
+			 * jQuery控制CSS
+			 * $(selector).css(name, value);
+			 * $(selector).css({properties});
+			 * $(selector).css(name);
+			 */
+			$(document).ready(function(){
+				$('#myContent').mouseover(function(){
+					$('#myContent').css('background-color','yellow');
+				});
+			});
+			
+			/*
+			 * jQuery Size操作
+			 * $(selector).height(value);
+			 * $(selector).width(value);
+			 */
+			$(document).ready(function(){
+				$('#myDiv').mouseover(function(){
+					$('#myDiv').height('200px');
+					$('#myDiv').width('200px');
+				});
+			});
+			$(document).ready(function(){
+				$('#myDiv').mouseout(function(){
+					$('#myDiv').height('100px');
+					$('#myDiv').width('100px');
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<p id="myContent">HelloWorld</p>
+		
+		<hr />
+		
+		<div id="myDiv" style="background-color: yellow; height: 100px; width: 100px;">
+		</div>
+		
+	</body>
+</html>

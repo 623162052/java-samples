@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>布局二</title>
+    <link rel="stylesheet" type="text/css" href="../../common/easyui/themes/cmcui/cmcui.css">
+    <link rel="stylesheet" type="text/css" href="../../common/easyui/themes/cmcui/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../common/easyui/themes/cmcui/iconfont/iconfont.css">
+    <script type="text/javascript" src="../../common/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="../../common/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../common/easyui/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body> 
+  <!--搜索区-->
+	<div class="panel-search">
+    <form action="" method="post" class="form form-horizontal">
+      <div class="row cl">
+        <label class="form-label col-2">坐席：</label>
+        <div class="formControls col-2"><input type="text" class="easyui-textbox" data-options="buttonIcon:'iconfont iconfont-search2'," style="height:30px"></div>
+        <label class="form-label col-2">开始时间：</label>
+        <div class="formControls col-2"><input type="text" class="easyui-datetimebox" style="height:30px"></div>
+        <label class="form-label col-2">结束时间：</label>
+        <div class="formControls col-2"><input type="text" class="easyui-datetimebox" style="height:30px"></div>
+      </div>
+      <div class="mt-10 text-c">
+        	<a href="javascript:void(0)" class="btn btn-secondary radius" ><i class="iconfont iconfont-search2"></i>查询</a>
+          <a href="javascript:void(0)" class="btn btn-default radius" ><i class="iconfont iconfont-zhongzuo"></i>重置</a>
+      </div>
+    </form>
+	</div>  
+  <!--表格区-->
+  <div class="easyui-panel" title="各渠道通话统计报表" style="width:100%;">
+      <!--表格-->
+    	<table class="easyui-datagrid" style=" width:100%;height:350px;"
+        data-options="singleSelect:true,border:false,collapsible:true,fitColumns:true,url:'datagrid_data1.json',method:'get',rownumbers:true, pagination:true">
+       <thead>
+        <tr>
+          <th data-options="field:'productid',resizable:false" width="18%">渠道</th>
+          <th data-options="field:'listprice',resizable:false" width="15%">转人工量</th>
+          <th data-options="field:'unitcost',resizable:false" width="20%">接通量</th>
+          <th data-options="field:'attr1',resizable:false" width="20%">总通话时长（秒）</th>
+          <th data-options="field:'status',resizable:false" width="25%">平均通话时长（秒）</th>
+        </tr>
+       </thead>
+    </table>
+  </div>
+</body>
+</html>

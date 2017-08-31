@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Untitled Document</title>
+		
+		<script type="text/javascript" src="../lib/jquery-1.6.1.js"></script>
+		<script type="text/javascript">
+			/*DOM选择器：
+				标签名	：   	$('标签名')
+				id		:   $('#id_name')
+				class	:	$('.class_name')
+			*/	
+			
+//			$(document).ready(function(){
+//					$("input").click(function(){
+//						$(this).hide();
+//					});
+//				});
+				
+			$(document).ready(function(){
+					$("#myButton").click(function(){
+						$(this).hide();
+					});
+				});	
+				
+			$(document).ready(function(){
+					$(".myButton").click(function(){
+						$(this).hide();
+					});
+				});	
+		//-------------------------------------------------------
+		/*CSS选择器
+		 */		
+			$(document).ready(function(){
+				$('#myUl li').css('list-style','none');
+			});
+		</script>
+
+	</head>
+	<body>
+		<input type="button" value="Button1" />
+		<input type="button" class="myButton" value="Button2" />
+		<input type="button" id="myButton" value="Button3" />
+		<hr />
+		
+		<ul id="myUl">
+			<li>A
+				<ul>
+					<li>aa</li>
+					<li>ab</li>
+					<li>ac</li>
+				</ul>
+			</li>
+			<li>B
+				<ul>
+					<li>ba</li>
+					<li>bb</li>
+					<li>bc</li>
+				</ul>	
+			</li>
+			<li>C
+				<ul>
+					<li>ca</li>
+					<li>cb</li>
+					<li>cc</li>
+				</ul>	
+			</li>
+		</ul>
+		<hr />	
+		
+		<a href="http://www.baidu.com/" >Link</a>
+	</body>
+</html>

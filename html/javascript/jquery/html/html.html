@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Untitled Document</title>
+		<script type="text/javascript" src="../lib/jquery-1.6.1.js"></script>
+		<script type="text/jscript">
+			//改变HTML内容
+			$(document).ready(function(){
+				$('button').click(function(){
+					$('button').html('yourButton');
+					$('#content').html('空帮哇');
+				});
+			});
+			//添加HTML内容
+			$(document).ready(function(){
+				$('#content').mouseover(function(){
+					$('#content').append('abc');
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<button type="button">myButton</button> 
+		<div id="content">扩你几瓦</div>
+	</body>
+</html>

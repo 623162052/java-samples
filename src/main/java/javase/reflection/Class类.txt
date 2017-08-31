@@ -1,0 +1,29 @@
+Class类：java.lang.Class
+	Class 类的实例表示正在运行的 Java 应用程序中的类和接口。所有具有相同元素类型和维数的数组都共享该 Class 对象[一个类的所有对象的Class对象时一样的]。
+	Class 没有公共构造方法。Class 对象是在加载类时由 Java 虚拟机以及通过调用类加载器中的 defineClass 方法自动构造的。
+	每当一个类被加载时，JVM就自动为其生成一个Class对象。声明引用变量时类不会被加载，在使用new生成对象时类才会被加载。
+	
+	每个类都有一个相应的java.lang.Class对象
+	每个类的Class对象存储于编译后的类所在的文件中，当JVM装载一个.class文件时就会装载一个Class对象,所以，一个类只有一个Class对象。
+
+获取Class对象：
+	1.	Class c1 = Class.forName("ClassName");			//实现动态加载类，获得Class对象
+	2.	ClassName.class;
+	3. 	Object object = new Object();
+		object.getClass();								//通过正在运行的类的对象获得Class对象
+		
+*******************************************************
+加载类：	
+
+普通情况申明引用并创建类的对象：
+StringBuilder str = null;		//不执行操作
+str = new StringBuilder(); 		//执行静态块、构造方法
+
+用Class.forName("str").newInstance():
+		static Class forName(String name)			//返回与带有给定字符串名的类或接口相关联的Class对象，
+													//调用 Class.forName("X") 将导致命名为X的类被初始化
+		static Class forName(String name, boolean initialize, ClassLoader loader)
+		在加载类的时候，默认是如果类中有定义静态区块则会运行它。
+		如果将initialize设置为false，则在加载类时不会立即运行静态区块，而是在使用类建立对象时才允许静态区块
+Class c1 = Class.forName("str");	//执行静态块
+c1.newInstance();					//执行构造方法

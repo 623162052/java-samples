@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test WebSocket</title>
+</head>
+<body>
+<div>
+    <input type="submit" value="Start" onclick="start()"/>
+</div>
+<div id="messages"></div>
+<script type="text/javascript">
+    var webSocket = null;
+
+    if ('WebSocket' in window)
+        webSocket = new WebSocket('ws://127.0.0.1:8081/Java/websocket');
+    else if ('MozWebSocket' in window)
+        webSocket = new MozWebSocket('ws://127.0.0.1:8081/Java/websocket');
+    else {
+        alert("not support");
+    }
+
+    //Chrome 33.0.1750.146 ≤‚ ‘Õ®π˝
+//    var webSocket = new WebSocket('ws://127.0.0.1:8081/Java/websocket');
+    webSocket.onerror = function (event) {
+        alert(event.data);
+    };
+
+    webSocket.onopen = function (event) {
+        document.getElementById('messages').innerHTML = 'Connection established';
+    };
+
+    webSocket.onmessage = function (event) {
+        document.getElementById('messages').innerHTML += '<br />' + event.data;
+    };
+
+    function start() {
+        webSocket.send('hello');
+        return false;
+    }
+</script>
+</body>
+</html>

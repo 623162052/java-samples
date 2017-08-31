@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>布局三</title>
+    <link rel="stylesheet" type="text/css" href="../../common/easyui/themes/cmcui/cmcui.css">
+    <link rel="stylesheet" type="text/css" href="../../common/easyui/themes/cmcui/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../common/easyui/themes/cmcui/iconfont/iconfont.css">
+    <script type="text/javascript" src="../../common/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="../../common/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../common/easyui/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div class="easyui-layout" style="width:100%;height:700px;">
+<!--栅格布局-->
+<div class="row cl">
+  <div class="col-2">
+    <div class="easyui-panel" title="操作员选择" style="width:100%;height:289px;" >
+      <!--按钮操作-->
+      <div class="panel-tool-box-tree" style="height:24px;line-height:24px;">
+          <a href="javascript:void(0)"  class="btn-xs btn-secondary radius"><i class="iconfont iconfont-user-group"></i>组织</a>
+          <a href="javascript:void(0)"  class="btn-xs btn-secondary radius"><i class="iconfont iconfont-list"></i>条件</a> 
+      </div>
+      <ul class="easyui-tree">
+			<li>
+				<span>组织结构</span>
+				<ul>
+					<li data-options="state:'open'">
+						<span>亚信</span>
+						<ul>
+							<li>刘潇</li>
+							<li>曹丹</li>
+							<li>李泽楷</li>
+						</ul>
+					</li>
+					<li>
+						<span>亚信软件</span>
+						<ul>
+							<li>顾泽明</li>
+							<li>赵撰</li>
+							<li>杜甫</li>
+							<li>陈锰矿</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+    </div>
+  </div>
+  <div class="col-10">
+    <div class="easyui-panel" title="操作员列表" style="width:100%;" >
+    <table id="dg" class="easyui-datagrid" style="width:100%;height:250px;"
+        data-options="rownumbers:true,border:false,singleSelect:true,url:'datagrid_data1.json',method:'get',pagination:true">
+      <thead>
+        <tr>
+          <th data-options="field:'productid',resizable:false" width="15%">接入编码</th>
+          <th data-options="field:'listprice',resizable:false" width="15%">渠道类型</th>
+          <th data-options="field:'unitcost',resizable:false" width="20%">客户编码</th>
+          <th data-options="field:'attr1',resizable:false" width="20%">接入账号</th>
+          <th data-options="field:'status',resizable:false" width="25%">接入时间</th>
+        </tr>
+      </thead>
+    </table>
+    </div>
+  </div>
+</div>
+<div class="row mt-10">
+	<div class="easyui-panel" data-options="border:false,fit:true">
+      <!--按钮操作-->
+      <div class="panel-tool-box cl">
+         <div class="fl">已授权功能集列表</div>
+         <div class="fr">
+          	<a href="javascript:void(0)"  class="btn btn-secondary radius"><i class="iconfont iconfont-shenhe-tongguo"></i>授权</a>
+          	<a href="javascript:void(0)"  class="btn btn-secondary radius"><i class="iconfont iconfont-shenhe-butongguo2"></i>回收功能集</a>
+         </div> 
+      </div>
+      <!--表格-->
+      <table class="easyui-datagrid"   style="width:100%;height:300px;"
+          data-options="rownumbers:true,singleSelect:true,url:'datagrid_data1.json',method:'get',pagination:true">
+        <thead>
+          <tr>
+            <th data-options="field:'ck',checkbox:true"></th>
+            <th data-options="field:'productid',resizable:false" width="15%">接入编码</th>
+            <th data-options="field:'listprice',resizable:false" width="15%">渠道类型</th>
+            <th data-options="field:'unitcost',resizable:false" width="20%">客户编码</th>
+            <th data-options="field:'attr1',resizable:false" width="20%">接入账号</th>
+            <th data-options="field:'status',resizable:false" width="25%">接入时间</th>
+          </tr>
+        </thead>
+      </table>
+   </div>
+</div>
+</div>
+</body>
+</html>

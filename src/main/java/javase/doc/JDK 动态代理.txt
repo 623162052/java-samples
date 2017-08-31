@@ -1,0 +1,77 @@
+JDK的动态代理深入解析（Proxy,InvocationHandler）-II
+
+4.   创建Proxy对象，测试
+
+public class ProxyTest_old {
+
+    public static void main(String[] args) {
+
+       UserDao userDao = new UserDaoImpl();
+
+       LogHandler_old logHandler = new LogHandler_old(userDao);
+
+       UserDao userDaProxy = (UserDao) Proxy.newProxyInstance(userDao
+
+              .getClass().getClassLoader(), userDao.getClass()
+
+              .getInterfaces(), logHandler);
+
+       userDaProxy.delete(new User());
+
+       userDaProxy.save(new User());
+
+       userDaProxy.update(new User());
+
+    }
+
+}
+
+解释：
+
+1.    Proxy即动态代理类；
+
+2.    Static Object newProxyInstance(ClassLoader loader, Class[] interfaces, InvocationHandler h)：返回代理类的一个实例，返回后的代理类可以当作被代理类使用；
+
+它有三个参数：
+
+ClassLoader loader   ----指定被代理对象的类加载器
+
+Class[] Interfaces   ----指定被代理对象所以事项的接口
+
+InvocationHandler h ----指定需要调用的InvocationHandler对象
+
+3.    实现InVocationHandler接口的LogHandler_old对象
+
+这个对象的invoke()方法就是Proxy这个动态代理类所代理的接口类的抽象方法的真实实现；
+
+它有三个参数：
+
+Object proxy         -----代理类对象
+
+Method method        -----被代理对象的方法（这里不是接口的抽象方法了，是具体的实现类中的方法）
+
+Object[] args        -----该方法的参数数组
+
+JDK中具体的动态代理类是怎么产生的呢？
+
+1.产生代理类$Proxy0类
+
+执行了Proxy.newProxyInstance(ClassLoader loader, Class[] interfaces, InvocationHandler h)
+
+将产生$Proxy0类，它继承Proxy对象，并根据第二个参数，实现了被代理类的所有接口，自然就可以生成接口要实现的所有方法了（这时候会重写hashcode，toString和equals三个方法），但是还没有具体的实现体；
+
+2.   将代理类$Proxy0类加载到JVM中
+
+这时候是根据Proxy.newProxyInstance(ClassLoader loader, Class[] interfaces, InvocationHandler h)它的第一个参数----就是被代理类的类加载器，把当前的代理类加载到JVM中
+
+3.   创建代理类$Proxy0类的对象
+
+调用的$Proxy0类的$Proxy0（InvocationHandler）构造函数，生成$Proxy0类的对象
+
+参数就是Proxy.newProxyInstance(ClassLoader loader, Class[] interfaces, InvocationHandler h)它的第三个参数
+
+这个参数就是我们自己实现的InvocationHandler对象，我们知道InvocationHandler对象中组合加入了代理类代理的接口类的实现类；所以，$Proxy0对象调用所有要实现的接口的方法，都会调用InvocationHandler对象的invoke（）方法实现；
+
+4.   生成代理类的class byte
+
+动态代理生成的都是二进制class字节码

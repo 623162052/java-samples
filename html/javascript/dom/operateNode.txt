@@ -1,0 +1,32 @@
+/**
+ * ◊Û“∆
+ */
+function toLeft(){
+	var currFlowNodeId = selectedNodeId.getAttribute('flowNodeId');
+	var obj = document.getElementById(currFlowNodeId);
+	
+	var preObj = obj.previousSibling;
+	var parNode = obj.parentNode;
+	if(preObj){
+		//÷¥––ÃÊªª
+		parNode.insertBefore(obj,preObj); 
+	}
+	//≈≈–Ú
+	sortNode();
+}
+
+/**
+ * ”““∆
+ */
+function toRight(){
+	var currFlowNodeId = selectedNodeId.getAttribute('flowNodeId');
+	var obj = document.getElementById(currFlowNodeId);
+	
+	var nextObj = obj.nextSibling;
+	if(nextObj){
+		//÷¥––ÃÊªª
+		$(obj).insertAfter(nextObj); 
+	}
+	//≈≈–Ú
+	sortNode();
+}

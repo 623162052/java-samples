@@ -1,0 +1,41 @@
+byte stream:	
+						
+						 |- ByteArrayInputStream
+						 |- FileInputStream *
+						 |- FilterInputStream			|- DataInputStream
+						 |								|- BufferedInputStream	*
+						 |								|- InflaterInputStream	|- ZipInputStream
+						 | 												
+						 |- PipedInputStream
+			InputStream  |- StringBufferInputStream(·ÏÆú)
+			|			 |- ObjectInputStream
+			|
+			|											|- DataInput
+java.lang.Object --------- RandomAccessFile 			|- DataOutput
+			|
+			|			 |- ObjectOutputStream
+			OutputStream |- ByteArrayOutputStream
+						 |- FileOutputStream			|- PrintStream
+						 |- FilterOutputStream
+						 |- PipedOutputStream
+
+------------------------------------------------------------------
+char stream:
+						
+				   |- BufferedReader *		|- LineNumberReader
+				   |- CharArrayReader
+				   |- FilterReader			|- PushbackReader
+				   |- InputStreamReader 	|- FileReader
+			Reader |- PipedReader
+			|	   |- StringReader	*
+			|
+java.lang.Object
+			|	
+			|	   |- BufferedWriter
+			|	   |- CharArrayWriter
+			Writer |- FilterWriter
+				   |- OutputStreamWriter 	|- FileWriter
+				   |- PipedWriter
+				   |- PrintWriter
+				   |- StringWriter
+

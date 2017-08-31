@@ -1,0 +1,170 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<title>Hello, World</title>  
+<style type="text/css">  
+html{height:100%}  
+body{height:100%;margin:0px;padding:0px}  
+#container{height:100%}  
+</style>  
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7E453d06901a119adca24051a8024ac2"></script>
+	<!-- 加载百度地图样式信息窗口 -->
+	<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+	<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+</head>  
+   
+<body> 
+<div id="result">
+		<button id="open">打开</button><button id="close">关闭</button>
+	</div>
+<div id="container"></div> 
+<div id="log"></div>
+<script type="text/javascript"> 
+//var map = new BMap.Map("container");          // 创建地图实例  
+//var point = new BMap.Point(116.404, 39.915);  // 创建点坐标  
+//map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别  
+
+
+var map = new BMap.Map("container");    
+var point = new BMap.Point(119.454919,31.56707);    
+map.centerAndZoom(point, 15);
+map.enableScrollWheelZoom();	// 支持鼠标滚轮缩放
+
+/**
+ * 控件
+ */
+//map.addControl(new BMap.NavigationControl({type: BMAP_NAVIGATION_CONTROL_SMALL})); 	// 平移缩放控件
+map.addControl(new BMap.NavigationControl()); 	// 平移缩放控件
+//map.addControl(new BMap.ScaleControl());   // 比例尺控件
+//map.addControl(new BMap.MapTypeControl()); // 地图类型控件
+
+
+/**
+ * 分配任务
+ */
+function assignTask(data){
+	alert(data);
+}
+
+/**
+ * 添加自定义覆盖物
+ */   
+// 标注
+var marker = new BMap.Marker(point);        // 创建标注
+//marker.enableDragging(); 
+map.addOverlay(marker);                     // 将标注添加到地图中
+
+marker.addEventListener("click", function(e) {
+	// 信息窗口
+	var opts = {    
+	 width : 250,     // 信息窗口宽度    
+	 height: 100,     // 信息窗口高度    
+	 title : e.point.lng + ", " + e.point.lat  // 信息窗口标题   
+	};
+	
+	var data = e.point.lng + ", " + e.point.lat;
+	var infoWindow = new BMap.InfoWindow("<input type='button' value='分配任务' onclick='assignTask(" + data + ");' />", opts);  // 创建信息窗口对象    
+	map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口
+});
+
+// 本地搜索
+/*
+var local = new BMap.LocalSearch(map, {      
+    renderOptions:{map: map}      
+});      
+local.search("天目湖");
+*/
+
+/*
+var local = new BMap.LocalSearch("溧阳市",   
+        {renderOptions: {map: map,autoViewport: true},pageCapacity: 3});      
+local.search("天目湖");
+*/
+/*
+var local = new BMap.LocalSearch(map,   
+        {renderOptions: {map: map,panel: "results"}});      
+local.search("天目湖");
+*/ 
+
+/*
+var options = {      
+	      onSearchComplete: function(results){      
+	          if (local.getStatus() == BMAP_STATUS_SUCCESS){      
+	                // 判断状态是否正确      
+	                var s = [];      
+	                for (var i = 0; i < results.getCurrentNumPois(); i ++){      
+	                    s.push(results.getPoi(i).title + ", " + results.getPoi(i).address);      
+	                }      
+	             document.getElementById("log").innerHTML = s.join("<br>");      
+	          }      
+	      }      
+	 };      
+	var local = new BMap.LocalSearch(map, options);      
+	local.search("公园");
+*/
+	
+/******************用户数据图层************************/
+/*
+//根据daboxId创建自定义图层，用户可用自己创建的geotableid替换30960  
+var customLayer=new BMap.CustomLayer({  
+    geotableId: 82130,   
+    q: '', //检索关键字  
+    tags: '', //空格分隔的多字符串  
+    filter: '' //过滤条件,参考http://developer.baidu.com/map/lbs-geosearch.htm#.search.nearby  
+});
+*/
+//将用户自定义图层添加到地图上的方法跟添加Tilelayer对象方式相同，即： 
+map.addTileLayer(customLayer);	//添加自定义图层
+
+
+
+
+var customLayer;
+function addCustomLayer(keyword) {
+	if (customLayer) {
+		map.removeTileLayer(customLayer);
+	}
+	customLayer=new BMap.CustomLayer({
+		geotableId: 82130,
+		q: '', //检索关键字
+		tags: '', //空格分隔的多字符串
+		filter: '' //过滤条件,参考http://developer.baidu.com/map/lbs-geosearch.htm#.search.nearby
+	});
+	map.addTileLayer(customLayer);
+	customLayer.addEventListener('hotspotclick',callback);
+}
+function callback(e)//单击热点图层
+{
+		var customPoi = e.customPoi;//poi的默认字段
+		var contentPoi=e.content;//poi的自定义字段
+		var content = '<p style="width:280px;margin:0;line-height:20px;">地址：' + customPoi.address + '<br/>价格:'+contentPoi.dayprice+'元'+'</p>';
+		var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+			title: customPoi.title, //标题
+			width: 290, //宽度
+			height: 40, //高度
+			panel : "panel", //检索结果面板
+			enableAutoPan : true, //自动平移
+			enableSendToPhone: true, //是否显示发送到手机按钮
+			searchTypes :[
+				BMAPLIB_TAB_SEARCH,   //周边检索
+				BMAPLIB_TAB_TO_HERE,  //到这里去
+				BMAPLIB_TAB_FROM_HERE //从这里出发
+			]
+		});
+		var point = new BMap.Point(customPoi.point.lng, customPoi.point.lat);
+		searchInfoWindow.open(point);
+}
+document.getElementById("open").onclick = function(){
+	addCustomLayer();
+};
+document.getElementById("close").onclick = function(){
+	if (customLayer) {
+		map.removeTileLayer(customLayer);
+	}
+};
+	
+</script>  
+</body>  
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>showModalDialog</title>
+<script type="text/javascript">
+	var getV = window.dialogArguments;
+	alert(getV);
+	function trans(tag){
+	   if (tag==0){
+	       window.returnValue= false;
+	   } else{
+	       window.returnValue = true;
+	  }
+	   window.close();
+	}
+</script>
+</head>
+<body >
+	<input type="button" value="返回真" onclick="trans(1)" />
+	<input type="button" value="返回假" onclick="trans(0)" />
+</body>
+</html>

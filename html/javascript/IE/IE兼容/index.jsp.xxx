@@ -1,0 +1,441 @@
+<%@ include file="/webframe/common/commonhead.jsp"%>
+<%@ include file="/cs/common/js/cs_common_include.jsp"%>
+<%@page import="com.ai.oneframe.main.web.FrameCommonAction"%>
+<%@ page contentType="text/html; charset=GBK"%>
+
+<%
+	//菜单
+	String topMenuHtml = "";
+	String subMenuHtml = "";
+	String queryMenuHtml = "null";
+	String customMenuHtml = FrameCommonAction.getInitCustomMenuHtml();
+	String[] menuHtmls = FrameCommonAction.getUserMenuHtml();
+	if (menuHtmls != null && menuHtmls.length >0) {
+		if (menuHtmls[0] != null) {
+			topMenuHtml = menuHtmls[0];
+		}
+		if (menuHtmls[1] != null) {
+			subMenuHtml = menuHtmls[1];
+		}
+		if (menuHtmls[2] != null) {
+			queryMenuHtml = menuHtmls[2];
+		}
+	}
+%>
+
+<!DOCTYPE HTML>
+<html>
+<head>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
+<link type="text/css" rel="stylesheet" href="theme/default/styles/main.css" />
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/setState.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/cs/ocs/desk/js/softphone.js"></script>
+
+<!-- openfire -->
+<script type="text/javascript" src="<%=request.getContextPath()%>/cs/ocs/desk/js/chat.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath()%>/cs/ocs/desk/js/strophe.js'></script>
+<script type='text/javascript' src='<%=request.getContextPath()%>/cs/ocs/desk/js/basic.js'></script>
+
+<style type="text/css">
+	.selected {
+		background-color: rgb(255, 255, 204);
+	}
+</style>
+
+
+<title>互联网管理系统</title>
+</head>
+<body>
+	<div class="header">
+		<!-- header -->
+		<div class="headerTop">
+			<ul>
+				<!-- 图标默认状态：btn01  灰色状态：btn01_off，其余规则相同 -->
+				<li><a class="btn06">受理请求</a></li>
+				<li><a class="btn07">综合接续</a></li>
+				<li><a class="btn08">密码验证</a></li>
+				
+				<li onclick="OcsSoftPhone.answer();" class="disabled"><a id="btnAnswer" class="btn02_off">应答</a></li>
+				<li class="disabled"><a id="btnRelease" class="btn03_off">挂机</a></li>
+				<li onclick="OcsSoftPhone.changeState('btnSayRest');" class="disabled"><a id="btnSayRest" class="btn04_off">休息</a></li>
+				<li onclick="OcsSoftPhone.changeState('btnSayFree');"><a id="btnSayFree" class="btn10">示闲</a></li>
+				<li onclick="OcsSoftPhone.sign();"><a id="btnSignIn" class="btn01">签入</a></li>
+			</ul>
+			
+			<span><em>未签入 00:00:00</em> <b id="currentState">签出</b></span>
+		</div>
+		<div class="headerBtm">
+			<ul>
+				<li><a class="menu01">套餐管理</a></li>
+				<li><a class="menu02">增值业务</a></li>
+				<li><a class="menu03">营销活动</a></li>
+				<li><a class="menu04">基础业务</a></li>
+				<li><a class="menu05">综合查询</a></li>
+				<li><a class="menu06">家庭业务</a></li>
+				<li><a class="menu07">集团业务</a></li>
+				<li><a class="menu08">12580业务</a></li>
+				<li><a class="menu09">铁通业务</a></li>
+				<li><a class="menu10">服务网点</a></li>
+			</ul>
+			<div class="menuSearch">
+				<input class="words" name="" type="text" value="菜单检索"
+					onfocus="this.value='';" /> <input class="btn" name=""
+					type="button" onclick="" />
+			</div>
+		</div>
+	</div>
+
+	<div id="mainContent">
+
+		<div class="right">
+			<div class="rightInner">
+				<ul class="topIcons">
+					<li><a class="icon01" href="#" title="飞信">飞信</a></li>
+					<li><a class="icon02" href="#" title="微信">微信</a></li>
+					<li><a class="icon03" href="#" title="微博">微博</a></li>
+					<li><a class="icon04" href="#" title="腾讯微博">腾讯微博</a></li>
+					<li><a class="icon05" href="#" title="App Store">App Store</a></li>
+					<li><a class="icon06" href="#" title="邮件">邮件</a></li>
+				</ul>
+				<ul class="questions" id="smallBoxList">
+					<li id='10001' onclick='SmallChat.setChatSelected(10001);' style='cursor:pointer;'>
+						<div class="pic bg01">
+							<span>8</span>
+						</div>
+						<div class="txt">
+							<span>魏晓峰</span>
+							<div class="btn">
+								<select name="">
+									<option id="">操作</option>
+									<option id="">回复</option>
+									<option id="">删除</option>
+								</select>
+							</div>
+							<p>移动的合约机是怎么扣费的？</p>
+							<em>04-23 17:08:26</em>
+						</div>
+					</li>
+					<li id='10002' onclick='SmallChat.setChatSelected(10002);' style='cursor:pointer;'>
+						<div class="pic bg02">
+							<span>8</span>
+						</div>
+						<div class="txt">
+							<span>魏晓峰</span>
+							<div class="btn">
+								<select name="">
+									<option id="">操作</option>
+									<option id="">回复</option>
+									<option id="">删除</option>
+								</select>
+							</div>
+							<p>移动的合约机是怎么扣费的？</p>
+							<em>04-23 17:08:26</em>
+						</div>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+		<div class="left">
+			<div class="tabs">
+				<!-- 标签页，请替换
+				<img src="theme/default/images/tabsImg.gif" /> -->
+			</div>
+			
+			<%-- 一级菜单, shiwx add --%>
+			    <div class="menu_main">
+			        <div class="rollBox" id="topRollDiv">
+			            <div class="Cont" id="topContDiv">
+			                <div class="ScrCont"> 
+			                    <div id="topMenuDiv"><!-- 实际宽度 -->
+									<ul id="topMenuUL">
+										<% 
+										out.println(topMenuHtml); 
+										System.out.println("topMenuHtml: " + topMenuHtml);
+										%>
+									</ul>
+			 					</div>
+			  				</div>
+			  			</div>
+					    <a id="topLeftBtn" style="display:none" href="#nogo" class="LeftBotton"  onmousedown="ISL_GoUp('topContDiv','topMenuDiv')" onmouseup="ISL_StopUp('topContDiv','topMenuDiv')"></a>
+					    <a id="topRightBtn" style="display:none" href="#nogo" class="RightBotton" onmousedown="ISL_GoDown('topContDiv','topMenuDiv')" onmouseup="ISL_StopDown('topContDiv','topMenuDiv')"></a>
+					    <ul>
+					  		<% 
+					  		out.println(subMenuHtml); 
+					  		System.out.println("subMenuHtml: " + subMenuHtml);
+					  		%>
+					    </ul>
+			 		</div>
+				</div>
+			
+			<div class="leftContainer" style="display:none;">
+
+				<div class="conLeft">
+
+					<ul class="leftTabs">
+						<li id="easyTab1" onclick="setTab('easyTab',1,3)"
+							class="tabCurrent">客户信息</li>
+						<li id="easyTab2" onclick="setTab('easyTab',2,3)">常用</li>
+						<li id="easyTab3" onclick="setTab('easyTab',3,3)">其它</li>
+					</ul>
+
+					<div class="leftTabsContent">
+						<div class="item" id="easyTab_1" style="display: block;">
+
+							<!-- 客户主要信息 -->
+							<div class="userMainInfo">
+								<span class="pic"></span> <span class="txt"> <b>笑看江湖</b>
+									<em class="vip">
+										<!-- VIP等级，可根据需要追加 -->
+								</em>
+									<p>
+										13579246810 <i>(全球通)</i>
+									</p>
+								</span>
+							</div>
+
+							<!-- 客户信息 -->
+							<div class="userInfo">
+								<h1>客户信息</h1>
+								<ul>
+									<li><span class="icon01">归属地：</span> 郑州</li>
+									<li><span class="icon02">帐号状态：</span> <em>欠费</em> <a
+										href="#">消费记录</a></li>
+									<li><span class="icon03">客户标签：</span> 网上营业厅</li>
+									<li><span class="icon04">个人偏好：</span> iPhone 5S</li>
+								</ul>
+							</div>
+
+							<!-- 已办业务 -->
+							<div class="infoList">
+								<h1>已办业务</h1>
+
+								<ul class="innerTabs">
+									<li id="innerTab1" onclick="setTab('innerTab',1,4)"
+										class="tabCurrent">订单</li>
+									<li id="innerTab2" onclick="setTab('innerTab',2,4)">免费</li>
+									<li id="innerTab3" onclick="setTab('innerTab',3,4)">收费</li>
+									<li id="innerTab4" onclick="setTab('innerTab',4,4)">营销</li>
+								</ul>
+
+								<div class="innerTabsContent">
+									<div class="item" id="innerTab_1" style="display: block;">
+										<ul>
+											<li><a href="#">GPRS是怎么计算费用的？</a></li>
+											<li><a href="#">如何设置服务密码？</a></li>
+											<li><a href="#">如何连接CMCC？</a></li>
+											<li><a href="#">GPRS是怎么计算费用的？</a></li>
+										</ul>
+									</div>
+
+									<div class="item" id="innerTab_2">2</div>
+									<div class="item" id="innerTab_3">3</div>
+									<div class="item" id="innerTab_4">4</div>
+								</div>
+
+							</div>
+
+
+
+						</div>
+						<div class="item" id="easyTab_2">第二个内容</div>
+						<div class="item" id="easyTab_3">第三个内容</div>
+					</div>
+
+				</div>
+
+				<div class="conRight">
+					<div class="conRightInner">
+
+						<!--消息内容展现区域开始-->
+						<div class="IMcontent">
+							<!-- 
+							<div class="tips">
+								当前等待人数为<span> 21 </span>人，稍等系统会自动为您连通客服...
+							</div> -->
+
+							<div class="sendMessageLayout">
+								<div class="smsArea">
+									<div class="personIcon"></div>
+									<!--人工客服头像使用样式-->
+									<div class="sendContent">
+										<div class="popInfo">
+											<div class="isLine_pop1"></div>
+											<!--兼容性圆角-->
+											<div class="topL"></div>
+											<div class="topR"></div>
+											<div class="bottomL"></div>
+											<div class="bottomR"></div>
+											<div class="InfoContent">
+												<div class="ContentTitle">
+													客服192431号<span style="float: right;">19:39:12</span>
+												</div>
+												<div class="ContentDetail">您好！欢迎您的访问，我们将诚挚为您服务！</div>
+											</div>
+										</div>
+									</div>
+									<div class="clearFloat"></div>
+								</div>
+							</div>
+
+							<div class="sendMessageLayout">
+								<div class="smsArea_R" style="float: right">
+									<div class="sendContent">
+										<div class="popInfo">
+											<div class="isLine_pop1"></div>
+											<!--兼容性圆角-->
+											<div class="topL"></div>
+											<div class="topR"></div>
+											<div class="bottomL"></div>
+											<div class="bottomR"></div>
+											<div class="InfoContent">
+												<div class="ContentTitle">
+													我<span style="float: right;">19:39:12</span>
+												</div>
+												<div class="ContentDetail">GPRS是怎么计算费用的？</div>
+											</div>
+										</div>
+									</div>
+									<div class="userIcon"></div>
+									<!--用户头像使用样式-->
+									<div class="clearFloat"></div>
+								</div>
+							</div>
+
+							<div class="sendMessageLayout">
+								<div class="smsArea">
+									<div class="andriodIcon"></div>
+									<!--自助客服头像使用样式-->
+									<div class="sendContent">
+										<div class="popInfo">
+											<div class="isLine_pop1"></div>
+											<!--兼容性圆角-->
+											<div class="topL"></div>
+											<div class="topR"></div>
+											<div class="bottomL"></div>
+											<div class="bottomR"></div>
+											<div class="InfoContent">
+												<div class="ContentTitle">
+													自助客服<span style="float: right;">19:39:12</span>
+												</div>
+												<div class="ContentDetail">自动折行测试！中华人民共和国中华人民共和国中华人民共中华人民共和国和国中华人民共和国！</div>
+											</div>
+										</div>
+									</div>
+									<div class="clearFloat"></div>
+								</div>
+							</div>
+
+							<div class="sendMessageLayout">
+								<div class="smsArea_R" style="float: right">
+									<div class="sendContent">
+										<div class="popInfo">
+											<div class="isLine_pop1"></div>
+											<!--兼容性圆角-->
+											<div class="topL"></div>
+											<div class="topR"></div>
+											<div class="bottomL"></div>
+											<div class="bottomR"></div>
+											<div class="InfoContent">
+												<div class="ContentTitle">
+													我<span style="float: right;">19:39:12</span>
+												</div>
+												<div class="ContentDetail">自动宽度测试</div>
+											</div>
+										</div>
+									</div>
+									<div class="userIcon"></div>
+									<div class="clearFloat"></div>
+								</div>
+							</div>
+
+							<div class="sendMessageLayout">
+								<div class="smsArea">
+									<div class="andriodIcon"></div>
+									<!--自助客服头像使用样式-->
+									<div class="sendContent">
+										<div class="popInfo">
+											<div class="isLine_pop1"></div>
+											<!--兼容性圆角-->
+											<div class="topL"></div>
+											<div class="topR"></div>
+											<div class="bottomL"></div>
+											<div class="bottomR"></div>
+											<div class="InfoContent">
+												<div class="ContentTitle">
+													自助客服<span style="float: right;">19:39:12</span>
+												</div>
+												<div class="ContentDetail">自动折行测试！中华人民共和国中华人民共和国中华人民共中华人民共和国和国中华人民共和国！</div>
+											</div>
+										</div>
+									</div>
+									<div class="clearFloat"></div>
+								</div>
+							</div>
+
+						</div>
+						<!--消息内容展现区域结束-->
+
+						<div class="webEdit">
+
+							<div class="styleCtrl">
+								<div class="ctrlMain">
+									<ul>
+										<li><a class="ic01" href="#" title="字体">字体</a></li>
+										<li><a class="ic02" href="#" title="表情">表情</a></li>
+										<li><a class="ic03" href="#" title="常用语">常用语</a></li>
+										<li><a class="ic04" href="#" title="图片">图片</a></li>
+										<li><a class="ic05" href="#" title="截图">截图</a></li>
+										<li><a class="ic06" href="#" title="语音">语音</a></li>
+										<li><a class="ic07" href="#" title="视频">视频</a></li>
+										<li><a class="ic08" href="#" title="工单">工单</a></li>
+										<li><a class="ic09" href="#" title="附件">附件</a></li>
+									</ul>
+									<span oncilkc="">历史记录</span>
+								</div>
+								<div class="ctrlFonts" style="display: block;">
+									<select class="w100" name="">
+										<option id="">宋体</option>
+										<option id="">微软雅黑</option>
+										<option id="">黑体</option>
+									</select> <select class="w50" name="">
+										<option id="">10</option>
+										<option id="">12</option>
+										<option id="">14</option>
+									</select>
+									<ul>
+										<li><a class="ic01" href="#" title="字体">字体</a></li>
+										<li><a class="ic02" href="#" title="表情">表情</a></li>
+										<li><a class="ic03" href="#" title="常用语">常用语</a></li>
+										<li><a class="ic04" href="#" title="图片">图片</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="editArea">
+								<textarea></textarea>
+								<input type="button" onclick="">
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</div>
+
+	<div class="footer">
+		<!-- footer -->
+		<span>刘晓莉 ( A689403 - 高级业务坐席 )</span> <a class="lk" href="#">切换组织</a>
+		<a class="lk" href="#">注销</a> <a class="lk01" href="#">公告(<b>5</b>)
+		</a> <a class="lk02" href="#">便签(<b>2</b>)
+		</a> <a class="lk03" href="#">提醒(<b>3</b>)
+		</a>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- basedir是工程的目录-->
+<project name="Servlet" default="run" basedir="../" >
+	<!-- 定义变量 -->
+	<property name="src" value="src"/>
+	<!-- Java编译输出路径 -->
+	<property name="class_folder" value="/${basedir}/WebRoot/WEB-INF/classes"/>
+	<!-- 功能发布路径 -->
+	<property name="app" value="D:\Software\apache-tomcat-7.0.30\webapps\Servlet"/>
+	<!-- 引用jar目录 -->
+	<property name="lib.dir" value="D:\Projects\Servlet\WebRoot\WEB-INF\lib"/>
+	
+	<!-- mail -->
+	<property name="mail.host" value="114.255.20.22" />
+	<property name="mail.port" value="110" />
+	<property name="mail.from" value="shiwx@asiainfo-linkage.com" />
+	<property name="mail.from.password" value="shiwx@asiainfo-linkage.com" />
+	<property name="mail.replyto" value="623162052@qq.com" />
+	<property name="mail.to" value="aoaoxiong@gmail.com" />
+	<property name="mail.tolist" value="aoaoxiong@gmail.com, 476173325@qq.com" />
+	
+	
+	<!-- 创建class文件存放目录 -->
+    <target name="init">    
+        <mkdir dir="${class_folder}"/> 
+        <delete dir="${app}" />
+    </target>
+	
+	<path id="classpath">
+		<fileset dir="/${basedir}/WebRoot/WEB-INF/lib/">  
+			<include name="**/*.jar"/>  
+		</fileset>  
+	</path>
+	
+	<!-- 执行编译-->
+	<target name="compile" depends="init">
+		<javac srcdir="${src}" destdir="${class_folder}" encoding="UTF-8" debug="true">
+			<classpath refid="classpath" />
+		</javac>  
+	</target>
+	
+    <target name="run" depends="compile" description="description">
+    	<!--将class文件打包，放到/WEB-INF/lib目录下  -->
+        <jar destfile="${app}/WEB-INF/lib/app.jar">
+            <fileset dir="${class_folder}">
+                <include name="**/*.*" />
+            </fileset>
+        </jar>
+    	
+    	<!--除了class文件外，其他文件拷贝到tomcat目录下-->
+        <copy todir="${app}" overwrite="true">
+            <fileset dir="${basedir}/WebRoot">
+            	<exclude name="WEB-INF/classes/*.*" />
+            </fileset>
+        </copy>
+    </target>
+
+	<target name="notify" depends="run" description="notify team">
+		<mail mailhost="${mail.host}" mailport="${mail.port}" user="from" password="${mail.from.password}" 
+			subject="测试环境编译结果">
+			<from address="${mail.from}" id="" />
+			<replyto address="${mail.replyto}" />
+			<to address="${mail.to}"/>
+			<message>TEST</message>
+		</mail>
+    </target>
+</project>

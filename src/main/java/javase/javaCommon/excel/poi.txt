@@ -1,0 +1,2 @@
+问题：org.apache.poi.hssf.record.RecordFormatException: Unable to construct record instance, the following exception occured: null
+解决方法：2.5版本POI不能使用excel高级功能，导入时焦点放在数据有效性列上保存，导入会失败

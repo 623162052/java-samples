@@ -1,0 +1,52 @@
+5.0新特性：
+	泛型：
+		泛型的形式：
+			<E>
+			<E extends 类型>
+			<E extends Numner&comparator>  类名&接口，表示E继承Numner类实现comparator接口
+			<?>  泛型通配符表示任意类型，仅用于传参
+			<? extends 类型>  表示这个类型可以是该类或者该类的子类。
+			<? super 类型>  表示这个类型可以是该类或者该类的父类。			
+			
+		泛型的优点：类型约束
+			指定泛型后，取出数据时不需要进行强制类型转换，可以直接赋值给相应类型。
+			可以限定集合中的元素类型，保证集合中的元素是按照要求放入的。	
+			可以增强多态(继承多个接口而无需写继承类)。
+			保证参数有效。
+
+		泛型的局限性：			
+			不能实例化泛型
+				T t = new T(); //error
+			数组不可用泛型限定
+				List<String>[] list = new List<String>[10];	//错误
+				E[] a = new E[10];	//错误
+			类的静态变量不能声明为类的泛型类型
+				public class GenClass<T> {	
+				  	private static T t;   //编译错误
+				}
+			静态方法可以是泛型方法(在修饰符和返回值之间写泛型)，但是不可以使用类的泛型。
+				static void copyArrayToList(Object[] os,List<T> ls){
+						//错误，T为类的泛型
+				}
+				
+				static <E> void copyArrayToList(E[] os,List<E> ls){ 
+						//泛型方法，正确的
+				}
+			泛型不能使用简单类型
+				GenList<int> nList = new GenList<int>(); //编译错误	
+			泛型类不能是异常类，也就是该泛型类不能继承自Throwable以及其子类
+				public class MyExpection<T> extends Exception{ }   //编译错误 
+			可以抛出（throws）泛型类，但catch的参数不能是泛型类。
+		
+		注意：
+			编译时类型的泛型和运行时类型的泛型一定要一致，没有多态。
+			支持泛型的集合，只能存放指定的类型，或者是指定类型的子类型。	
+
+	
+	
+				
+		解析注释：利用反射
+			1、Class.forName()
+			2、getMethod
+			3、判断是否有注释
+			4、getAnnotation

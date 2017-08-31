@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!DOCTYPE Customers SYSTEM "AttlistID.dtd">
+<Customers>
+	<Customer CustomerID="ACCP001">
+		<Name>yufeng</Name>
+		<Age>25</Age>
+		<Sex>Male</Sex>
+	</Customer>
+	<Order OrderID="APTECH001" CustomerIDRef="ACCP001">
+		<OrderDate>2003-04-05</OrderDate>
+		<Address>PKU</Address>
+	</Order>
+</Customers>

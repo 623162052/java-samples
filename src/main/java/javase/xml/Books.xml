@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<books>
+	<book id="101">
+		<title>XML In A Nutshell</title>
+		<author>Scott</author>
+		<price>39.95</price>
+	</book>
+	<book id="102">
+		<title>Who Moved My Cheese</title>
+		<author>Johnson</author>
+		<price>19.95</price>
+	</book>
+</books>

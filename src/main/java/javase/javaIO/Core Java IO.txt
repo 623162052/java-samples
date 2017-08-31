@@ -1,0 +1,231 @@
+【根据数据格式、操作对象、随机访问能力等因素，来决定选择那种流来实现功能】
+
+
+【File.separator】
+
+**************************************************【字节流】*************************************************************
+	InputStream(抽象基类)		
+						 -------FileInputStream		//文件输入流，【直接面向数据源】
+						 -------FilterInputStream	//包含一些具有额外功能的流
+									-------BufferedInputStream //在内存建一个缓冲数组,一下读取数组长度字节的数据，避免对硬盘操作很多次【不面向数据源】
+									-------DataInputStream【不面向数据源】	
+									-------ZipInputStream/GzipInputStream
+						 -------ObjectInputStream  **********
+	
+	OutputStream(抽象基类)
+						  ------FileOutputStream【面向数据源】
+						  ------FilterOutputStream
+									------BufferedOutputStream
+									------DataOutputStream【不面向数据源】
+									------ZipOutputStream/GzipOutputStream
+						  ------ObjectOutputStream
+						  ------PrintStream	:把任何数据输出为字符格式【不面向数据源】
+	
+	1.
+	InputStream 抽象父类
+			read()   		从输入流中读取数据的下一个字节，以int类型返回，流结束返回-1
+			read(byte[])   一次读取多个字节，放入指定数组，返回一个整数，表示读取字节的数量
+			read(byte[], int offset, int length)
+			available()		剩余可读字节量（不是所有输入流都支持此方法）
+	OutputStream 抽象父类	
+			write(int)	 一次写出一个字节，输出的字节是int的末尾字节
+			write(byte[])  输出数组中所有的字节
+			write(byte[], offset, length)
+			//【图像、声音、视屏、Word文档等用字节流】
+			//缓冲数组为字节数组
+			
+	2.
+	FileInputStream			直接从文件输入【直接接数据源】
+	FileOutputStream		直接输出到文件【直接接数据源】
+		//使用字节缓冲数组读取时一般数组大小为：	1024(1K)、2048(2K)、4096(4K)、8192(8K)
+		flush()		//刷出缓冲区数据
+		
+	3.处理流【处理从其他流中流出的数据，为其他流提供额外的功能】
+	BufferedInputStream
+	BufferedOutputStream
+		//提供内存缓冲区，提高磁盘、网络读写效率
+		//在内存中有一个缓冲区，里面有一个byte数组，默认大小为8192（8k）。此处一个字节一个字节读，效率不会低，因为数据已经在内存中了，不需要额外的硬盘活动；输出同理
+			
+	4.
+	ObjectInputStream	【对象反序列化】
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream("路径"));
+			Object obj = in.readObject();
+			//反序列化：对象流中保存了对象的信息，根据类名通过反射重新创建对象
+	ObjectOutputStream	 【对象序列化】
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("路径"));	  
+			out.writeObject(obj);
+		//对象序列化机制：使存储对象像存储文本和数字一样简单
+		//类要实现Serializable接口
+		//transient：数据只存在内存，不能序列化的数据
+		
+		//需要读取某个类的大量对象，而又关注性能，可以使用Externalizable接口
+
+	5.	
+	DataInputStream
+		readInt()
+		readLong()
+		readFloat()
+		readUFT()		//内部将Unicode编码转为UTF编码进行输出
+						//UTF-8表示英文是单字节，中文是三字节
+		...	
+						//没有数据可读时会出现EOFException
+						//DataInputStream循环读取数据、控制循环结束可用available()或捕获异常
+	DataOutPutStream
+		writeInt()
+		writeLong()
+		writeDouble()
+		...
+				//只用来读写八种基本类型数据和字符串数据
+				//不是作为文本方式读写
+				//读取的顺序要按照存入的顺序，不然得到乱码	
+		
+	6.
+	PrintStream(单向流)
+							//把任何数据输出为字符格式
+		print()				//采用平台默认编码格式转换成字节打印到文件
+		println()
+	
+		System.out:
+			//因为：public static final PrintStream out,所以能打印任何类型数据
+		System.err:
+			//因为：public static final PrintStream err,所有能打印任何类型的错误
+		
+		
+****************************************************【字符流】***************************************************************
+处理字符文本
+【Java使用的Unicode编码每个字符都使用连个字节处理，所以继承Reader、Writer的类设定有读写都是两个字节的能力】
+
+
+	
+Reader(抽象类)------BufferedReader	【内部为char数组，只能缓冲字符，所以面向字符流】【可以接在InputStreamReader或FileReader后】
+			  ------FilterReader		[只能使用系统默认字符集][里面接好了FileInputStream,等价于InputStreamReader in = new InputStream(new FileInputStream(filename))]
+			  ------InputStreamReader【不面向数据源】
+			  ------StringReader
+Writer(抽象类)------BufferedWriter
+			  ------FilterWriter
+			  ------OutputStreamWriter	【不面向数据源】
+			  ------StringWriter
+			  ------PrintWriter
+			  
+	1.
+	Reader
+	Writer
+		read():	读取一个字符，以int类型返回，流结束返回-1
+		write()：最后两个字节作为字符输出
+		//【文本文件用字符流】
+		//缓冲数组为字符数组
+	2.
+	转换流
+	InputStreamReader【字节转换为字节】
+		new InputStreamReader(new FileInputStream(fileName));	//系统默认的编码转换成Unicode编码，也可以在构造方法里设置转换成特定的编码
+		等价于 FileReader fr = new FileReader("fileName");
+		
+	OutputStreamWriter【字符转换为字节】
+	
+			//UTF-8：	中文三字节，英文单字节
+			//Unicode：中文英文都是双字节
+			//GBK：英文单字节，中文双字节
+	
+	3.
+	字符缓冲流
+		BufferedReader
+			readLine() 
+		BufferedWriter
+			//BufferedReader br = new BufferedReader(new FileReader(System.in)); 控制台输入
+
+	4.
+	PrintWriter
+		print()
+		println()			//打印一行
+		
+
+
+****************************************【RandomAccessFile】********************************************************************
+		//建议文本时使用
+RandomAccessFile	//随机访问文件，允许只访问文件中的一段【其他的都是从头读到尾】
+					//允许跳到某一字节位置开始读写数据
+	seek()		跳转到某个字节处【绝对定位】
+	readInt()
+	readFloat()
+	...
+	writeInt()
+	writeFloat()
+	...
+	getFilePointer()		得到当前指针位置
+	
+*********************************************【File】*********************************************************************	
+java.io.File
+	可以表示文件或文件夹
+	getName()
+	getPath()
+	getParent()	上一级目录的字符串
+	getParentFile()	上一级目录的File对象
+	length()	文件大小，对目录没效
+	lastModified() - 最后修改时间
+	
+	canRead()
+	canWrite()
+	canExecute()
+	
+	exists()	判断表示的文件或目录是否存在
+	isFile()	判断是否文件
+	isDirectory()	判断是否是目录
+
+	createNewFile()		创建文件
+	mkdir()		只能创建一层目录
+	mkdirs()	创建多层目录
+	
+	delete()
+	
+	list()		获取目录的文件名称列表,返回String[]
+	listFiles()	获取目录的文件列表，返回File[]
+		
+	list(FileNameFilter)
+	listFiles(FileNameFilter)
+	listFiles(FileFilter)		
+			//递归：方法中自调用	
+			//FilenameFilter		文件过滤器，一般可以创建匿名内部类，重写accept方法，完成一定的功能
+
+************************************************【其他】*****************************************************************************
+*********
+编码：	
+	Charset cset = Charset.forName("ISO-8859-1");		//得到一个字符集
+	ByteBuffer encode(String str)						//将给定的字符串编码为字节序列
+	CharBuffer decode(ByteBuffer buffer)				//解码给定的字节序列，不能解码的被转换成？
+	//Unicode不能表示的字符将被转换成	?
+***********
+路径：	
+	
+	Windows下父子目录划分：		c:/windows/bin【不推荐】	c:\\windows\\bin【不推荐】
+								//为了可移植，最好调用File.separator,在Windows中他是反斜线（\）,在Unix中他是斜线（/）
+	.代表当前路径
+	.\\src    当前目录下的src文件或目录		【\在Java中是转义符】
+	/ ：父目录与子目录划分					
+	System.getProperty("user.dir");			//获取当前Java Project路径
+	
+************
+控制台输入方法：	
+	输入
+		1.输入整数
+			import java.util.Scanner;		
+			Scanner abc = new Scanner(System.in);
+			int courseCode = abc.nextInt();	
+		3.输入字符串
+			import java.util.Scanner;
+			Scanner abc = new Scanner(System.in);
+			String courseCode = abc.nextLine();  
+			
+		3.文件
+			Scanner in = new Scanner(new File("myfile.txt路径"));
+
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

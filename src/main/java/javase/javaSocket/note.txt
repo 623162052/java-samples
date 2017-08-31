@@ -1,0 +1,8 @@
+
+TCP分Socket和ServcerSocket：
+	Socket 			Client
+	ServerSocket	Server
+	
+	port 1024下的是系统占用的
+
+UDP两边都是DatagramSocket

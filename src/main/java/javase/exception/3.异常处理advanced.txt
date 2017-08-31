@@ -1,0 +1,160 @@
+RuntimeException :这种异常可以通过改进代码实现来避免。
+
+ThreadDeath 
+调用 Thread 类中带有零参数的 stop 方法时，受害线程将抛出一个 ThreadDeath 实例。 
+仅当应用程序在被异步终止后必须清除时才应该捕获这个类的实例。如果 ThreadDeath 被一个方法捕获，那么将它重新抛出非常重要，因为这样才能让该线程真正终止。 
+如果没有捕获 ThreadDeath，则顶级错误处理程序不会输出消息。 
+虽然 ThreadDeath 类是“正常出现”的，但它只能是 Error 的子类而不是 Exception 的子类，因为许多应用程序捕获所有出现的 Exception，然后又将其放弃。 
+
+
+
+Java异常处理机制  
+第一、在方法中用try...catch语句捕获并处理异常
+第二、对于处理不了的异常或者要转型的异常，在方法的声明处通过throws语句抛出异常。例如： 
+
+如果每个方法都是简单的抛出异常，那么在方法调用方法的多层嵌套调用中，Java虚拟机会从出现异常的方法代码块中往回找，
+直到找到处理该异常的代码块为止。然后将异常交给相应的catch语句处理。如果Java虚拟机追溯到方法调用栈最底部main()方法时，
+如果仍然没有找到处理异常的代码块，将按照下面的步骤处理： 
+第一、调用异常的对象的printStackTrace()方法，打印方法调用栈的异常信息。 
+第二、如果出现异常的线程为主线程，则整个程序运行终止；如果非主线程，则终止该线程，其他线程继续运行。 
+通过分析思考可以看出，越早处理异常消耗的资源和时间越小，产生影响的范围也越小。因此，不要把自己能处理的异常也抛给调用者。 
+
+[finally]
+finally语句在任何情况下都必须执行的代码，这样可以保证一些在任何情况下都必须执行代码的可靠性。比如，在数据库查询异常的时候，
+应该释放JDBC连接等等。finally语句先于return语句执行，而不论其先后位置，也不管是否try块出现异常。
+finally语句唯一不被执行的情况是方法执行了System.exit()方法。System.exit()的作用是终止当前正在运行的Java虚拟机。
+finally语句块中不能通过给变量赋新值来改变return的返回值，也建议不要在finally块中使用return语句，没有意义还容易导致错误。 
+
+
+
+异常处理的语法规则： 
+三种结构
+try...catch...finally、
+try...catch、
+try...finally
+
+catch语句可以有一个或多个，
+finally语句最多一个，
+try、catch、finally这三个关键字均不能单独使用
+
+ 
+try、catch、finally三个代码块中变量的作用域分别独立而不能相互访问
+如果要在三个块中都可以访问，则需要将变量定义到这些块的外面 
+
+多个catch块时候，Java虚拟机会匹配其中一个异常类或其子类，就执行这个catch块，而不会再执行别的catch块。 
+
+
+throw语句后不允许有紧跟其他语句，因为这些没有机会执行
+
+如果一个方法调用了另外一个声明抛出异常的方法，那么这个方法要么处理异常，要么声明抛出。 
+
+throw和throws关键字的区别 
+throw用来抛出一个异常，在方法体内。语法格式为：throw 异常对象。 
+throws用来声明方法可能会抛出什么异常，在方法名后，语法格式为：throws异常类型1，异常类型2...异常类型n。 
+
+
+定义和使用异常类 
+1、使用已有的异常类，假如为IOException、SQLException。 
+try{ 
+程序代码 
+}catch(IOException ioe){ 
+程序代码 
+}catch(SQLException sqle){ 
+程序代码 
+}finally{ 
+程序代码 
+} 
+
+2、自定义异常类 
+创建Exception或者RuntimeException的子类即可得到一个自定义的异常类。例如: 
+public class MyException extends Exception{ 
+public MyException(){} 
+public MyException(String smg){ 
+super(smg); 
+} 
+} 
+
+3、使用自定义的异常 
+用throws声明方法可能抛出自定义的异常，并用throw语句在适当的地方抛出自定义的异常。例如： 
+在某种条件抛出异常 
+public void test1() throws MyException{ 
+... 
+if(....){ 
+throw new MyException(); 
+} 
+} 
+
+将异常转型（也叫转译），使得异常更易读易于理解 
+public void test2() throws MyException{ 
+... 
+try{ 
+... 
+}catch(SQLException e){ 
+... 
+throw new MyException(); 			//SQLException转型成MyException
+} 
+} 
+
+
+
+运行时错误 
+Error类及其子类表示运行时错误，通常是由Java虚拟机抛出的，JDK中与定义了一些错误类，比如VirtualMachineError 
+和OutOfMemoryError，程序本身无法修复这些错误.一般不去扩展Error类来创建用户自定义的错误类。而RuntimeException类表示程序代码中的错误，是可扩展的，用户可以创建特定运行时异常类。 
+Error（运行时错误）和运行时异常的相同之处是:Java编译器都不去检查它们，当程序运行时出现它们，都会终止运行。 
+
+
+
+
+最佳解决方案 
+对于运行时异常，我们不要用try...catch来捕获处理，而是在程序开发调试阶段，尽量去避免这种异常，一旦发现该异常，正确的做法就会改进程序设计的代码和实现方式，修改程序中的错误，从而避免这种异常。捕获并处理运行时异常是好的解决办法，因为可以通过改进代码实现来避免该种异常的发生。 
+对于受检查异常，没说的，老老实实去按照异常处理的方法去处理，要么用try...catch捕获并解决，要么用throws抛出！ 
+对于Error（运行时错误），不需要在程序中做任何处理，出现问题后，应该在程序在外的地方找问题，然后解决。 
+
+
+
+
+异常转型和异常链 
+异常转型在上面已经提到过了，实际上就是捕获到异常后，将异常以新的类型的异常再抛出，这样做一般为了异常的信息更直观！比如： 
+public void run() throws MyException{ 
+... 
+try{ 
+... 
+}catch(IOException e){ 
+... 
+throw new MyException(); 
+}finally{ 
+... 
+} 
+} 
+
+
+异常链
+在JDK1.4以后版本中，Throwable类支持异常链机制。Throwable包含了其线程创建时线程执行堆栈的快照。它还包含了给出有关错误更多信息的消息字符串。最后，它还可以包含 cause（原因）：另一个导致此throwable抛出的throwable。
+它也称为异常链 设施，因为cause自身也会有cause，依此类推，就形成了异常链，每个异常都是由另一个异常引起的。 
+通俗的说，异常链就是把原始的异常包装为新的异常类，并在新的异常类中封装了原始异常类，这样做的目的在于找到异常的根本原因。 
+
+通过Throwable的两个构造方法可以创建自定义的包含异常原因的异常类型： 
+Throwable(String message, Throwable cause) 
+构造一个带指定详细消息和 cause 的新 throwable。 
+Throwable(Throwable cause) 
+构造一个带指定 cause 和 (cause==null ? null :cause.toString())（它通常包含类和 cause 的详细消息）的详细消息的新 throwable。 
+getCause() 
+返回此 throwable 的 cause；如果 cause 不存在或未知，则返回 null。 
+initCause(Throwable cause) 
+将此 throwable 的 cause 初始化为指定值。 
+在Throwable的子类Exception中，也有类似的指定异常原因的构造方法： 
+Exception(String message, Throwable cause) 
+构造带指定详细消息和原因的新异常。 
+Exception(Throwable cause) 
+根据指定的原因和 (cause==null ? null : cause.toString()) 的详细消息构造新异常（它通常包含 cause 的类和详细消息）。 
+因此，可以通过扩展Exception类来构造带有异常原因的新的异常类。 
+
+
+
+Java异常处理的原则和技巧 
+
+1、避免过大的try块，不要把不会出现异常的代码放到try块里面，尽量保持一个try块对应一个或多个异常。 
+2、细化异常的类型，不要不管什么类型的异常都写成Excetpion。 
+3、catch块尽量保持一个块捕获一类异常，不要忽略捕获的异常，捕获到后要么处理，要么转译，要么重新抛出新类型的异常。 
+4、不要把自己能处理的异常抛给别人。 
+5、不要用try...catch参与控制程序流程，异常控制的根本目的是处理程序的非正常情况。 

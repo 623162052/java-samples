@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+
+<script type="text/javascript">
+	window.onload = function(){
+		//会导致页面假死
+		/*
+		var start = new Date();
+		for(var i=0; i<1000000; i++){
+			var currDiv = document.createElement("div");
+			currDiv.innerHTML = i;
+			document.body.appendChild(currDiv);
+		}
+		var end = new Date();
+		window.console.log(end - start + " ms");
+		*/
+		
+		//定时执行
+		window.setTimeout("print()", 25);				//setTimeout: 定时单次执行，间隔250ms
+		window.clearTimeout();
+		
+		
+		
+		//window.setInterval("print()", 25);			//setInterval: 重复定时执行，间隔250ms
+	};
+	
+	function print(){
+		for(var i=0; i<1000000; i++){
+			var currDiv = document.createElement("div");
+			currDiv.innerHTML = i;
+			document.getElementById("content").appendChild(currDiv);
+		}
+		/*
+		var currDiv = document.createElement("div");
+		currDiv.innerHTML = 111;
+		document.body.appendChild(currDiv);
+		*/
+	}
+
+	
+</script>
+</head>
+<body>
+	<div id="content"></div>
+	<input id="stopAction" type="button" onclick="" />
+</body>
+</html>

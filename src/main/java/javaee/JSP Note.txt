@@ -1,0 +1,144 @@
+---------------------------------------------
+2.JSP页面元素
+	静态内容
+	指令		共三种指令：	<%@page %>	
+									<%@	page import=”java.util.List”%>	
+									<%@	 page language=”java” contentType=”text/html; charset=UTF-8” pageEncoding=”UTF-8”%>
+								<%@include %>	
+									<%@	include file=”文件路径”	%>
+										include指令
+											include指令被用来插入文本或者JSP文件。语法如下：
+											<%@ include file="relativeURLspec" %>
+											这个file属性通常为HTML文件或者JSP文件。被引用的文件必须为本WEB应用中的。
+								<%@taglib %>		
+	表达式		<%=Java表达式	%>
+	脚本		<%	Java代码	%>
+							JSP中的脚本是直接绑定到HTML中的JAVA代码片段。
+							在JSP中有三种脚本语言组件可被调用，每种组件出现于相应的位置。
+
+	声明		<%!	方法	%>	声明方法，供其他页面调用
+						<%! 
+							public static void print(JspWriter out){
+								try{
+									out.println("hello");
+								}catch(Exception e){
+									e.printStack();
+								}			
+							}
+						%>
+	标准动作
+	注释		<!—客户端看到-->
+				<%--客户端看不到--%><%//单行注释%><%/*多行注释*/%>
+---------------------------------------------		
+3.开发JSP动态网站的步骤
+	创建WEB项目、设计WEB项目的目录结构、编写JSP代码、部署运行
+---------------------------------------------
+5.JSP中文处理：
+		设置当前jsp显示编码
+
+				
+				response.setContentType("text/html;charset=UTF-8");
+				request.setCharacterEncoding("UTF-8");
+				再把表单的提交设为post，就能解决所有中文问题
+---------------------------------------------
+7.JSP错误处理
+	错误页面：<%@ page errorPage=”error.jsp”%>
+	显示错误页面<%@ page isErrorPage=”true”%>
+			<%=exception.printStackTrace()	%>
+---------------------------------------------			
+8.JSP文件调用
+	Jsp调用js
+		Js文件：方法
+		Jsp文件：head里<script><%@ include file=”xxx.js” %><script>
+				或者<script src=”xxx.js”></script>
+			      在body里<script>调用函数之类的</script>
+		这样做是错误的：
+<% String url = ”xxx.jsp”%>
+			<%@ include file=”<%=url%>” %>
+		
+	Jsp调用jsp
+		先声明一个方法<%!	方法体		%>
+		然后在另一个jsp文件里用<% @  include file=”xxx.jsp” %>
+并且<%=表达式 %>
+	
+JSP调用JavaBean
+<% @ page import="Util."%>
+<jsp:useBean id="counter" class="com.Counter" scope="application" />
+id是class的一个对象 scope是限定范围，page、session、application
+
+---------------------------------------------
+9. JSP转译文件目录
+C:\Eclipse工程名\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work\Catalina\localhost\Eclipse工程名
+
+---------------------------------------------
+10.JSP隐式对象
+输入输出相关：		request:	HttpServletRequest
+				response:	HttpServletResponse
+					response.sendRedirect("url");
+					response.setHeader("refresh","5;URL=url");
+					response.setIntHeader("Refresh", 3); 
+					response.setHeader("Cache-Control", "no-cache");[http1.1]
+
+				out		：JspWriter
+与作用域通信相关：	pageContext:	PageContext
+				session	:HttpSession
+					session.setAttribute("name",value);
+					session.getAttribute("name",value);
+				application：ServletContext
+					application.setAttribute("name",value);
+					application.getAttribute("name",value);
+					主要方法：setAttribute() 、getAttribute()、removeAttribute()
+				pageContext只在当前页面有效
+				session在同一个会话内有效
+				application在项目部署在服务器上一直有效
+与Servlet有关：	config
+				page:	HttpJspPage
+与错误有关：		exception:	java.lang.Throwable
+						exception.printStackTrace(new PrintStream(new FileOutputStream("c"\\error.log")))
+				
+---------------------------------------------				
+11.Servlet调用JavaBean并跳转到JSP
+	JSP----------Servlet------------JSP
+	action        setAttribute             getAttribute
+		getRequestDispatcher("url").forward(request, response)
+
+	JavaBean规则：
+		属性第一个字母小写，访问权限一般为private
+		一般有set,get方法
+		有空构造方法
+		一般用来实现某一个业务逻辑或取得特定结果
+	
+JSP跳转到JSP：	<jsp:forward page="b.jsp" />	【此时页面还留在a.jsp】
+------------------------------------
+	请求
+
+jsp通过表单提交或超链接传递参数
+
+通过表单提交：【get或post提交】										request.getParameter("name");
+通过超链接?id=value/重定向 url?id=value(多个参数用&)【get提交】:	request.getParameter("name");
+跳转：																request.getAttribute("name");
+	
+------------JSP-----------------------------
+1.
+  <%  %>代码段
+  <%=  %>表达式
+  <%!  %> 声明
+
+2.<%@page %>
+  <%@include %>
+  <%@taglib %>
+  
+3.JSP的隐式对象（内置对象）
+  out ：JspWriter 类的一个引用
+  request：HttpServletRequest类的一个引用
+  response：HttpServletResponse类的一个引用
+  session：HttpSession类的一个引用
+  application：ServletContext类的一个引用
+  exception：java.lang.Throwable类的一个引用
+  pageContext：PageContext
+  page:jsp转成Servlet类的一个实例
+  config：ServletConfig
+	
+	
+会话重写
+xxx/xx.jsp:jsessionid=原来的sessionID

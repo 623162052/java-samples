@@ -1,0 +1,62 @@
+ <html>
+<head>
+<title>面向对象</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<script type="text/javascript">	
+	//------------------------------------------------
+	var obj1 = new Object();
+	obj1 = null;
+	
+	
+	/*
+		Object
+		Function
+		Array
+		String
+		Boolean
+		Number
+		Date
+		RegExp
+		Error
+		EvalError
+		RangeError
+		ReferenceError
+		SyntaxError
+		TypeError
+		URIError
+	*/
+	//可以用 prototype 属性为任何已有的类定义新方法
+	var obj = new Object();
+	Object.prototype.sayHello = function(){
+		console.info("hello");
+	};
+	obj.sayHello();
+	
+	
+	
+	//Function对象
+	//用Function定义函数比用传统方式要慢得多,不过,所有函数都应看作 Function 类的实例
+	var func = new Function("console.log('Function');");	
+	func();
+	
+	//创建实例
+	function createCar() {
+	var oTempCar = new Object;
+	oTempCar.color = "blue";
+	oTempCar.doors = 4;
+	oTempCar.mpg = 25;
+	oTempCar.showColor = function() {
+	alert(this.color);
+	};
+	return oTempCar;
+	}
+
+	var oCar1 = createCar();
+	console.log(oCar1.color);
+	
+	
+</script>
+</head>
+<body>
+</body>
+</html>

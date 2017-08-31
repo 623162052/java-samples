@@ -1,0 +1,7 @@
+
+	1.java：跟的是主类名，Java解释器，执行已经转换成bytecode的java应用程序
+	2.javac：JavaCompiler，java程序编译成bytecode 
+	3.javadoc：文档生成器，创建HTML文件
+	4.javap：反编译，将class文件还原回方法和变量
+	5.jdb：Java调试器，用来调试java程序。
+	6.appletviwer：Applet解释器，解释已转换成bytecode的java小应用程序

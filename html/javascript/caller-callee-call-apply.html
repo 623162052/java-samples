@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+
+/**
+ * caller
+ * 当前函数.caller: 返回一个对函数的引用，该函数调用了当前函数
+ */
+function callerDemo() {
+    if (callerDemo.caller) {
+        var a= callerDemo.caller.arguments[0];
+        alert(a);
+    } else {
+        alert("this is a top function");
+    }
+}
+function handleCaller() {
+    callerDemo();
+}
+//handleCaller(1, 2);
+
+
+/**
+ * 演示函数的callee属性.
+ * arguments.callee:初始值是正被执行的 Function 对象,用于匿名函数
+ */
+function calleeDemo() {
+    alert(arguments.callee);
+}
+//calleeDemo();
+
+
+/**
+ * 例子
+ */
+
+	var items = [ 123, 789, 323, 778, 232, 654, 219, 543, 321, 160, 789, 323,
+			778, 232, 654, 219, 543, 321, 160, 789, 323, 778, 232, 654, 219,
+			543, 321, 160, 789, 323, 778, 232, 654, 219, 543, 321, 160, 789,
+			323, 778, 232, 654, 219, 543, 321, 160, 789, 323, 778, 232, 654,
+			219, 543, 321, 160, 789, 323, 778, 232, 654, 219, 543, 321, 160,
+			789, 323, 778, 232, 654, 219, 543, 321, 160, 789, 323, 778, 232,
+			654, 219, 543, 321, 160, 789, 323, 778, 232, 654, 219, 543, 321,
+			160, 789, 323, 778, 232, 654, 219, 543, 321, 160, 789, 323, 778,
+			232, 654, 219, 543, 321, 160, 789, 323, 778, 232, 654, 219, 543,
+			321, 160, 789, 323, 778, 232, 654, 219, 543, 321, 160, 789, 323,
+			778, 232, 654, 219, 543, 321, 160 ];
+	function outputValue(value) {
+		document.write(value + " - ");
+	}
+	function processArray(items, process, callback) {
+		var todo = items.concat(); //create a clone of the original
+		setTimeout(function() {
+			process(todo.shift());
+			if (todo.length > 0) {
+				setTimeout(arguments.callee, 25);			//参数怎么传过来的
+			} else {
+				callback(items);
+			}
+		}, 25);
+	}
+	/*
+	processArray(items, outputValue, function() {
+		document.write("Done!");
+	});
+	*/
+	
+	
+/**
+ * call:用于继承 
+ *	 传入一个对象作为当前对象，比如传入currObj，sayColor中使用this就代表currObj
+ *   应用某一对象的一个方法，用另一个对象替换当前对象。
+ 	 apply与call的区别是第二个参数不同。apply是  数组或者arguments 对象。而call是逗号隔开的任何类型。
+ */
+function sayColor(sPrefix,sSuffix) {
+    document.write(sPrefix + this.color + " : " + sSuffix + " - " + this.xxx);
+};
+
+var currObj = new Object();
+currObj.color = "blue";
+
+sayColor.call(currObj, "The color is ", "a very nice color indeed.");
+	
+</script>
+</html>

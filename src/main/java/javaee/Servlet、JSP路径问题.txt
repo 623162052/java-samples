@@ -1,0 +1,68 @@
+
+关于Servlet、JSP中的相对路径和绝对路径归纳
+	相对路径：相对路径是相对于当前访问的页面
+	绝对路径：到达根目录[服务器的根或引用的根]
+	服务器的根: http://localhost:8080/
+	应用的根:	http://localhost:8080/App/
+
+ 1. 超链接
+	<form action="abc.do" method="post">*********</form>，并且该页面的访问地址是http://localhost:8080/App/login
+    【此处可以使用相对路径和绝对路径】
+	相对路径：http://localhost:8080/App/abc.do
+    绝对路径：http://localhost:8080/abc.do【此处"/"是指服务器的根而非应用的根 】
+
+2.  web.xml
+	web.xml的<servlet-mapping>中<url-pattern>只能使用绝对路径，即必须要以"/"开头,这里的绝对路径表示应用的根
+	【特例：在<url-pattern>中使用模式匹配的*.do，但仍然应该理解成从/开始】
+	
+
+3.	跳转1 request.getRequestDispatcher() 
+	【此处可以使用相对路径和绝对路径】
+	request.getRequestDispatcher("/abc.jsp");【绝对路径，"/"表示应用的根】
+	request.getRequestDispatcher("abc.jsp");【相对路径，执行代码时地址栏上显示的路径】
+    
+4.  跳转2 getServletContext().getRequestDispatcher("/abc.jsp");
+    【这里必须使用绝对路径，"/"表示应用的根】
+	可以这么理解：在ServletContext上调用请求转发，如果使用相对路径，则无法得知到底相对于该应用的什么位置，只能根据绝对路径来判断
+				  由于是在应用上下文上调用的方法，所以"/"就表示应用的根。
+
+5.  servletContext 中的getResourceAsStream(String)，
+	其中的参数应该是以"/"开头的绝对路径，其中"/"表示应用的根。
+
+6.  重定向	response.sendRedirect();
+	【这里可用相对路径、绝对路径、其他WEB应用】
+	相对路径：response.sendRedirect("foo/stuff.do");	http://localhost:8080/App/foo/stuff.do
+	绝对路径：response.sendRedirect("/foo/stuff.do");	http://localhost:8080/foo/stuff.do
+	其他WEB应用：response.sendRedirect("http://www.xxx.com");	http://www.xxx.com
+	
+	
+------------------------------------------------------------
+解决路径问题方法：
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+ <a href="<%=basePath %>xxx.xxx">XX</a>
+			
+			request.getScheme()				：返回协议名称，比如： http, https, ftp
+			request.getServerName()			：返回服务器地址,比如：10.0.7.104, localhost, matthew-pc(计算机名)
+			request.getServerPort()			：返回端口名， 比如： 8080, 3306
+			request.getContextPath()		: 返回当前目录路径，以"/"开始，不以"/"结束，若已经在服务器根目录，则返回""
+											  比如:当前在/App/login.jsp,则返回 /App/
+			
+			basePath = "http://localhost:8080/App/login"
+	
+	
+JSP
+	/：	代表工程路径，直接加上请求地址
+	没有/：表示在当前路径下，再加上请求地址	
+	
+---------------------------------------------------------------------------------	
+路径：	
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+在head下<base href="<%=basePath%>">	
+	
+

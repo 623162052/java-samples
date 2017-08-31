@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>遍历JSON</title>
+<script type="text/javascript" src="./json.js"></script>
+</head>
+<body>
+
+</body>
+
+<script type="text/javascript">
+	var xx = {"username" : "admin", "password" : "password1"};
+	alert(JSON.parse('{"username" : "admin", "password" : "password1"}'));
+
+	//list	
+	var list = [{"username" : "admin", "password" : "password1"},
+	            {"username" : "test1", "password" : "password2"}];
+	for(var item in list){
+		document.write(list[item]["username"] + " - " + list[item]["password"] + " ");
+	}
+	
+	document.write("<br />-------------------------------------------------------");
+	var temp = JSON.stringify(list)
+	alert(temp);
+	/*
+	document.write(temp);
+	for(var item in temp){
+		document.write(temp[item]["username"] + " - " + temp[item]["password"] + " ");
+	}*/
+	document.write("<br />-------------------------------------------------------");
+	
+	temp = JSON.parse(temp);
+	/*
+	for(var item in temp){
+		document.write(temp[item]["username"] + " - " + temp[item]["password"] + " ");
+	}*/
+	alert(temp);
+	document.write("<br />-------------------------------------------------------");
+	
+	//Map
+	var value = {
+			"china":[
+				{"name":"hangzhou", "item":"hz"},
+				{"name":"shanghai", "item":"sh"},
+				{"name":"sichuan", "item":"sc"}
+			],
+			"Spain":[
+				{"name":"cc", "item":"c"},
+				{"name":"dd", "item":"d"}
+			]
+		};
+	
+	for(var country in value){
+		document.write(country + " : " + value[country] + "<br />");
+		for(var city in value[country]){
+			document.write("city: " + value[country][city].name + " - " + value[country][city].item + " ");
+			document.write("city: " + value[country][city]["name"] + " - " + value[country][city]["item"] + "<br />");
+		}
+	}
+	
+
+	// 由Array转为JSON
+	Array.prototype.toJSON = function()
+	{
+		var temp = ["["];
+		for(var i=0; i < this.length; i++)
+		{
+			switch(typeof(this[i]))
+			{
+				case "function":
+					temp.push
+					(
+						this[i].toString().replace(/ {0,}[\t\r\v\f\n] {0,}/g,"").replace(/\s{2,}/g, " ")
+					);
+					break;
+				case "undefined" :
+				case "number"    :
+				case "boolean"   : temp.push(""+this[i]); break;
+				case "object"    : temp.push(this[i]===null ? this[i] : this[i].toJSON()); break;
+				case "string"    :
+				default          : temp.push("\""+this[i].replace(/"/g,'\\"')+"\""); break;
+			}
+			temp.push(i==(this.length-1) ? "" : ", ");
+		}
+		temp.push("]");
+		return temp.join("");
+	}
+
+	// 由Object转为JSON
+	Object.prototype.toJSON = function()
+	{
+		var temp = [];
+		temp.push("{");
+		for(var mem in this)
+		{
+			switch(typeof(this[mem]))
+			{
+				case "function":
+					temp.push
+					(
+						"\""+mem+"\":"+this[mem].toString().replace(/ {0,}[\t\r\v\f\n] {0,}/g,"").replace(/\s{2,}/g, " ")
+					);
+					break;
+				case "object" :
+					temp.push(this[mem]===null
+					? "\"" + mem + "\":" + this[mem]
+					: "\"" + mem + "\":" + this[mem].toJSON());
+					break;
+				case "undefined" :
+				case "number"    :
+				case "boolean"   : temp.push("\""+mem+"\":"+this[mem]); break;
+				case "string"    :
+				default          : temp.push("\""+mem+"\":\""+this[mem].replace(/"/g,'\\"')+"\""); break;
+			}
+			temp.push(", ");
+		}
+		temp.push("}");
+		var strTemp = temp.join("").replace(/, {0,}$/,"");
+		return strTemp;
+	}
+
+	// 由JSON还原对象
+	String.prototype.unJSON = function()
+	{
+		var strToObj = "strToObj="+this;
+		try{eval(strToObj);}catch(e){strToObj=this;}
+		return strToObj;
+	}
+
+
+
+	/**
+	 * 使用例子 ******************
+	 */
+	function _func()
+	{
+		var str = "";
+	}
+
+	var _array = [_func,1,'ab"c',true,,{a:1,b:[1,2,3],c:'ab"c'}];
+
+	var _json  = _array.toJSON();
+	//alert(_json); // 转换后的JSON
+
+	var _unjson = _json.unJSON();
+	_unjson[0](); // 从JSON还原对象中执行函数
+
+
+	//Test
+	var arrayData = new Array();
+	arrayData[0] = ["aaa","bbb","ccc"];
+	arrayData[1] = "aaa";
+	arrayData[2] = "aaa";
+	//alert(arrayData.toJSON());
+</script>
+
+</html>

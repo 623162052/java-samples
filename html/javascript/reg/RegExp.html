@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>New Web Project</title>
+		<script type="text/javascript">
+			//test()	检索字符串中的指定值,返回 true 或 false
+			//exec()	检索字符串中的指定值,返回被找到的值,如果没有发现匹配,返回 null
+			//compele()	既可以改变检索模式，也可以添加或删除第二个参数
+			function check(){
+				var pattern1 = new RegExp("e");
+				document.write(pattern1.test("ABCDEF"));
+				document.write("<hr />" + pattern1.exec("A"));
+				
+				var patt1= new RegExp("e");
+				document.write("<hr />" + patt1.test("The best things in life are free"));
+				patt1.compile("d");
+				document.write("<hr />" + patt1.test("The best things in life are free"));
+				
+				/*  
+				 	g 全局匹配
+					i 对大小写不敏感的匹配
+					m 多行匹配
+				*/
+				//添加参数i后不区分大小写
+				var pattern3 = new RegExp("a","i");
+				var pattern4 = /w3school/i;
+				document.write("<hr />" + pattern3.test("A"));
+				document.write("--" + pattern3.test("a"));		
+				document.write("--" + pattern4.test("W3SCHOOL"));
+				
+				var pattern5 = new RegExp("[a-h]");
+				document.write("<hr />" + pattern5.test("z"));
+								
+				//.  单个字符
+				var pattern7 = new RegExp("h.t");
+				document.write("<hr />" + pattern7.test("ahata"));
+				
+				//  \d  数字
+				var pattern8 = /\d/;
+				document.write("<hr />" + pattern8.test("4"));
+				
+				// \s 空白字符
+				var pattern9 = /\s/;
+				document.write("<hr />" + pattern9.test("a xas"));
+
+				// \b 单词开头的匹配
+				var pattern10 = /\bword/;
+				document.write("<hr />" + pattern10.test("wordabc"));
+				
+				// \B 单词不在开头的匹配
+				var pattern11 = /\Bword/;
+				document.write("<hr />" + pattern11.test("abcword"));
+				
+				// n+ 匹配至少包含一个n的字符串
+				var pattern12 = /o+/;
+				document.write("<hr />" + pattern12.test("abco"));
+				
+				// n* 匹配零个或一个
+				var pattern14 = /ab*/;
+				document.write("<hr />" + pattern14.test("aa"));
+				
+				// n? 匹配零个或多个
+				var pattern13 = /ab?/;	//a必须有,b零个或多个
+				document.write("<hr />" + pattern13.test("absdhsdk"));
+				
+				// n{x} 匹配x个n的序列
+				var pattern15 = /\d{4}/;
+				document.write("<hr />" + pattern15.test("abc1231"));
+				
+				// n{x,y} 匹配x个或y个n的序列
+				var pattern16 = /\d{1,3}/;
+				document.write("<hr />" + pattern16.test("1"));
+				
+				// n{x,} 匹配至少x个n的序列
+				var pattern17 = /\d{2,}/;
+				document.write("<hr />" + pattern17.test("1111"));
+				
+				// n$ 匹配任何为n结尾的字符串
+				var pattern18 = /a$/;
+				document.write("<hr />" + pattern18.test("abc"));
+				
+				// ^n 匹配任何以n开头的字符串
+				var pattern19 = /^a/;
+				document.write("<hr />" + pattern19.test("bc"));
+				
+				// ?=n 匹配任何其后紧接着n的字符串
+				var pattern20 = /is(?= all)/;  //all前面添加了个空格：is后面空格再all
+				document.write("<hr />" + pattern20.test("is all"));
+				
+				// ?!n 其后没有紧接着n的字符串
+				var pattern21 = /is(?! all)/;
+				var pattern22 = /is(?!all)/;
+				document.write("<hr />" + pattern21.test("is aall"));
+				document.write("<hr />" + pattern22.test("isall")); //false
+				
+				/* ------------------------------------------------------------------ */
+				
+				//search
+				var str1 = "Visit W3School!";
+				document.write("<hr />" + str1.search(/W3School/));		//返回str1中匹配的位置
+				
+				//match 找到一个或多个正则表达式的匹配
+				//字符串1.match("字符串2"); 字符串1.match(regExp); 
+				var pattern23 = /\d/;
+				document.write("<hr />" + "12".match(pattern23));	//返回1
+				document.write("<hr />" + "12".match("2"));			//返回2
+				
+				//replace 
+				var str2 = "Visit Microsoft!";
+				document.write("<hr />" + str2.replace(/Microsoft/,"W3School"));  //返回替换后的字符串
+				
+			}
+		</script>
+    </head>
+    <body>
+        <h1>Test RegExp</h1>
+		
+		<script type="text/javascript">
+			check();
+		</script>
+    </body>
+</html>

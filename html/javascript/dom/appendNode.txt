@@ -1,0 +1,7 @@
+if(!document.getElementById("average_" + titleId)){
+	var averageDiv = document.createElement("div");
+	averageDiv.id = "average_" + titleId;
+	averageDiv.innerHTML = "Æ½¾ù·Ö£º<%=average%>";
+	
+	document.getElementById(titleId).appendChild(averageDiv);	
+}

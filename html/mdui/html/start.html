@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=yes"/>-->
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="/Java/html/mdui/mdui-v0.2.1/css/mdui.min.css">
+    <script src="/Java/html/mdui/mdui-v0.2.1/js/mdui.min.js"></script>
+
+
+</head>
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
+
+
+<div class="mdui-container">
+    <div class="mdui-toolbar mdui-color-theme">
+        <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+        <span class="mdui-typo-title">Title</span>
+        <div class="mdui-toolbar-spacer"></div>
+        <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>
+        <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">refresh</i></a>
+        <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">more_vert</i></a>
+    </div>
+</div>
+
+
+<div class="mdui-container">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#example1-tab1" class="mdui-ripple">web</a>
+        <a href="#example1-tab2" class="mdui-ripple">shopping</a>
+        <a href="#example1-tab3" class="mdui-ripple">images</a>
+    </div>
+    <div id="example1-tab1" class="mdui-p-a-2">web content</div>
+    <div id="example1-tab2" class="mdui-p-a-2">shopping content</div>
+    <div id="example1-tab3" class="mdui-p-a-2">images content</div>
+</div>
+
+
+
+<div class="mdui-container">
+    <div class="mdui-tab mdui-tab-scrollable" mdui-tab>
+        <a href="#example2-tab1" class="mdui-ripple">web</a>
+        <a href="#example2-tab2" class="mdui-ripple">shopping</a>
+        <a href="#example2-tab3" class="mdui-ripple">videos</a>
+        <a href="#example2-tab4" class="mdui-ripple">images</a>
+        <a href="#example2-tab5" class="mdui-ripple">news</a>
+        <a href="#example2-tab6" class="mdui-ripple">maps</a>
+        <a href="#example2-tab7" class="mdui-ripple">books</a>
+        <a href="#example2-tab8" class="mdui-ripple">flights</a>
+        <a href="#example2-tab9" class="mdui-ripple">apps</a>
+        <a href="#example2-tab10" class="mdui-ripple">dictionary</a>
+    </div>
+</div>
+
+
+
+<ul class="mdui-list" style="max-width: 360px;">
+    <li class="mdui-list-item">
+        <div class="mdui-list-item-content">Inbox</div>
+        <i class="mdui-list-item-icon mdui-icon material-icons">move_to_inbox</i>
+    </li>
+    <li class="mdui-list-item">
+        <div class="mdui-list-item-content">Outbox</div>
+        <i class="mdui-list-item-icon mdui-icon material-icons">send</i>
+    </li>
+    <li class="mdui-list-item">
+        <div class="mdui-list-item-content">Trash</div>
+        <i class="mdui-list-item-icon mdui-icon material-icons">delete</i>
+    </li>
+    <li class="mdui-list-item">
+        <div class="mdui-list-item-content">Spam</div>
+        <i class="mdui-list-item-icon mdui-icon material-icons">error</i>
+    </li>
+</ul>
+
+
+<div class="mdui-dialog">
+    <div class="mdui-dialog-title"></div>
+    <div class="mdui-dialog-content"></div>
+    <div class="mdui-dialog-actions"></div>
+</div>
+
+
+<div class="mdui-fab-wrapper" id="exampleFab">
+    <button class="mdui-fab mdui-ripple mdui-color-theme-accent">
+        <!-- 默认显示的图标 -->
+        <i class="mdui-icon material-icons">add</i>
+
+        <!-- 在拨号菜单开始打开时，平滑切换到该图标，若不需要切换图标，则可以省略该元素 -->
+        <i class="mdui-icon mdui-fab-opened material-icons">add</i>
+    </button>
+    <div class="mdui-fab-dial">
+        <button class="mdui-fab mdui-fab-mini mdui-ripple mdui-color-pink"><i
+                class="mdui-icon material-icons">backup</i></button>
+        <button class="mdui-fab mdui-fab-mini mdui-ripple mdui-color-red"><i
+                class="mdui-icon material-icons">bookmark</i></button>
+        <button class="mdui-fab mdui-fab-mini mdui-ripple mdui-color-orange"><i class="mdui-icon material-icons">access_alarms</i>
+        </button>
+        <button class="mdui-fab mdui-fab-mini mdui-ripple mdui-color-blue"><i
+                class="mdui-icon material-icons">touch_app</i></button>
+    </div>
+</div>
+
+
+<div class="mdui-container">
+    <div class="mdui-row-md-4">
+        <div class="mdui-col">
+            <label class="mdui-checkbox">
+                <input type="checkbox"/>
+                <i class="mdui-checkbox-icon"></i>
+                默认不选中
+            </label>
+        </div>
+        <div class="mdui-col">
+            <label class="mdui-checkbox">
+                <input type="checkbox" checked/>
+                <i class="mdui-checkbox-icon"></i>
+                默认选中
+            </label>
+        </div>
+        <div class="mdui-col">
+            <label class="mdui-checkbox">
+                <input type="checkbox" disabled/>
+                <i class="mdui-checkbox-icon"></i>
+                禁用，且不选中
+            </label>
+        </div>
+        <div class="mdui-col">
+            <label class="mdui-checkbox">
+                <input type="checkbox" disabled checked/>
+                <i class="mdui-checkbox-icon"></i>
+                禁用，且选中
+            </label>
+        </div>
+    </div>
+</div>
+
+
+<ul class="mdui-list" style="max-width: 360px;">
+    <li class="mdui-list-item">
+        <div class="mdui-list-item-avatar"><img src="//mdui-org.b0.upaiyun.com/docs/assets/docs/img/avatar1.jpg"/></div>
+        <div class="mdui-list-item-content">Brendan Lim</div>
+    </li>
+    <li class="mdui-list-item">
+        <div class="mdui-list-item-avatar"><img src="//mdui-org.b0.upaiyun.com/docs/assets/docs/img/avatar2.jpg"/></div>
+        <div class="mdui-list-item-content">me, Scott, Jennifer</div>
+    </li>
+    <li class="mdui-list-item">
+        <div class="mdui-list-item-avatar"><img src="//mdui-org.b0.upaiyun.com/docs/assets/docs/img/avatar3.jpg"/></div>
+        <div class="mdui-list-item-content">Grace Ng</div>
+    </li>
+    <li class="mdui-list-item">
+        <div class="mdui-list-item-avatar"><img src="//mdui-org.b0.upaiyun.com/docs/assets/docs/img/avatar4.jpg"/></div>
+        <div class="mdui-list-item-content">Kerem Suer</div>
+    </li>
+</ul>
+
+
+<div class="mdui-container">
+    <div class="mdui-list" style="max-width: 360px;">
+        <label class="mdui-list-item mdui-ripple">
+            <div class="mdui-checkbox">
+                <input type="checkbox" checked/>
+                <i class="mdui-checkbox-icon"></i>
+            </div>
+            <div class="mdui-list-item-content">Line item selected</div>
+            <i class="mdui-list-item-icon mdui-icon material-icons">chat</i>
+        </label>
+        <label class="mdui-list-item mdui-ripple">
+            <div class="mdui-checkbox">
+                <input type="checkbox"/>
+                <i class="mdui-checkbox-icon"></i>
+            </div>
+            <div class="mdui-list-item-content">Line item unselected</div>
+            <i class="mdui-list-item-icon mdui-icon material-icons">chat</i>
+        </label>
+        <label class="mdui-list-item mdui-ripple">
+            <div class="mdui-checkbox">
+                <input type="checkbox" checked/>
+                <i class="mdui-checkbox-icon"></i>
+            </div>
+            <div class="mdui-list-item-content">Line item selected</div>
+            <i class="mdui-list-item-icon mdui-icon material-icons">chat</i>
+        </label>
+    </div>
+</div>
+
+
+
+<div class="mdui-container">
+    <ul class="mdui-list" mdui-collapse="{accordion: true}" style="max-width: 360px;">
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+            <div class="mdui-list-item-content">Home</div>
+        </li>
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">dashboard</i>
+            <div class="mdui-list-item-content">Dashboard</div>
+        </li>
+        <li class="mdui-collapse-item mdui-collapse-item-open">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">people</i>
+                <div class="mdui-list-item-content">Audience</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                <li class="mdui-list-item mdui-ripple">Overview</li>
+                <li class="mdui-list-item mdui-ripple">Language</li>
+                <li class="mdui-list-item mdui-ripple">Location</li>
+                <li class="mdui-list-item mdui-ripple">New vs Returning</li>
+            </ul>
+        </li>
+        <li class="mdui-collapse-item">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">device_hub</i>
+                <div class="mdui-list-item-content">Acquisition</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                <li class="mdui-list-item mdui-ripple">Overview</li>
+                <li class="mdui-list-item mdui-ripple">All Traffic</li>
+                <li class="mdui-list-item mdui-ripple">Direct Traffic</li>
+                <li class="mdui-list-item mdui-ripple">Search Overview</li>
+            </ul>
+        </li>
+        <li class="mdui-collapse-item">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">touch_app</i>
+                <div class="mdui-list-item-content">Behavior</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                <li class="mdui-list-item mdui-ripple">Overview</li>
+                <li class="mdui-list-item mdui-ripple">All Pages</li>
+                <li class="mdui-list-item mdui-ripple">Landing Pages</li>
+                <li class="mdui-list-item mdui-ripple">Exit Pages</li>
+            </ul>
+        </li>
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">shopping_cart</i>
+            <div class="mdui-list-item-content">Ecommerce</div>
+        </li>
+    </ul>
+</div>
+
+
+<div class="mdui-container mdui-p-t-5">
+    <div class="mdui-spinner"></div>
+</div>
+
+
+
+</body>
+</html>

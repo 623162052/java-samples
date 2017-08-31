@@ -1,0 +1,21 @@
+IE中的F5 和Ctrl+F5 的区别
+在Internet Explorer中按Ctrl + F5, 是一种便捷的强制重新加载页面的方法, 页面所有的组件部分(images, css , javascript等等)都会被强制重新加载. 它等效于用空缓存的IE去访问一个页面.
+F5就是简单的刷新当前页面, 点击ctrl + r, 或者右键选择刷新, 都是一样的, 他们在发送的http request的header中有"If-Modified"字串. 如果在netmon中查看f5过的trace的话, 会发现正常情况下很多的http 304 not modified响应. 
+而正常情况下Ctrl + F5 就是全部是Http 200 OK响应.
+
+
+IE缓存JS问题
+1.<%@ page import="java.lang.Math"%>
+2.<script type="text/javascript" src="<%=request.getContextPath()%>/crm/cs/sr/common/js/srutil.js?xx=<%=Math.random() %>"></script>
+
+IE去广告：
+管理加载项--跟踪保护--您的个人列别--设置--自动阻止
+
+
+名称       ChinaList+EasyList
+状态       已启用
+地址       http://easylist-msie.adblockplus.org/chinalist+easylist.tpl
+
+
+
+http://dayngo.com/static/filter.html

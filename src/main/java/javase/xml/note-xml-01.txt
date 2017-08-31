@@ -1,0 +1,196 @@
+XML - Extensible Markup Language
+=========================================================
+  可扩展的标记语言
+  
+  XML作用
+  -------------------------------------------------------
+       1， 存储数据
+       2， 传输数据
+       
+  XML - Html
+  -------------------------------------------------------
+    XML         HTML
+    
+    表示数据    表现数据
+    自描述文档
+  
+       
+  XML语法
+  -------------------------------------------------------
+      1， 头标记，头标记之前不能有任何字符
+      
+          <?xml version="1.0" encoding="UTF-8"?>
+          
+      2， 所有的标记元素都是自定义的，
+      
+      3， 只有一个根标记
+      
+      4， 一个标记必须有结束标记
+          <abc>xxx</abc>
+          
+          <abc />
+          
+      5， 标记必须正确嵌套
+          V <a><b></b></a>
+          X <a><b></a></b>
+          
+      
+      6， 属性值必须有引号，可用单引号或双引号
+          <email time="xxzxx">
+          <email time='xxzxx'>
+          
+          如果值中有单引号，用双引号引
+          如果值中有双引号，用单引号引
+          <email time=‘fff"sss"ccc’>
+          <email time=“fff‘sss’ccc”>
+          
+      7， 转移符，XML中叫实体（Entity）
+          
+          &lt;   - <
+          &gt;   - >
+          &amp;  - &
+          &quot; - "
+          &apos; - '
+      
+      8， <![CDATA[ ... ]]>
+          
+          Character Data
+          
+          处理程序处理此标时，
+          标记内的数据不做任何处理，直接提取出来
+          
+      9， 注释
+          
+          <!-- 
+            注释
+          -->
+
+
+  DTD - Document Type Definition
+  ----------------------------------------------
+    在同一领域中对XML书写规范进行定义
+    
+    元素定义
+    --------------------------------------------
+        1， 空元素
+            <!ELEMENT a EMPTY>
+        
+            <a></a>
+            <a />
+
+        2， 包含任意内容
+            <!ELEMENT a ANY>
+            
+            <a>
+              <asdasdf>asdfa</asdasdf>
+              <fff><b></b></fff>
+            </a>
+            
+        3， 规定子元素序列
+            <!ELEMENT email (from, to-email, subject, body)>
+            
+        4， 规定子元素出现的次数
+            <!ELEMENT a (b?,c*,d+) >
+            
+            ? - 0..1
+            * - 0..*
+            + - 1..*
+            
+        5， 逻辑或关系
+            
+            <!ELEMENT a (b|c, d)>
+            
+            <a>
+              <b></b>
+              <d></d>
+            </a>
+            
+            
+            <a>
+              <c></c>
+              <d></d>
+            </a>
+       
+       
+    属性定义
+    -------------------------------------------------
+       1， 默认值
+           <!ATTLIST email time CDATA "00:00:00">
+       
+       2， 必须属性 
+       
+           <!ATTLIST email time CDATA #REQUIRED>
+           
+       3， 可选属性 
+       
+           <!ATTLIST email time CDATA #IMPLIED>
+           
+       4， 固定值属性
+           <!ATTLIST course name CDATA #FIXED "JAVA">
+           
+       5， 取值枚举
+           <!ATTLIST course name CDATA (JAVA|XML|ORACLE|JDBC|HIBERNATE) "JAVA">
+           
+   定义实体
+   ----------------------------------------------
+       <!ENTITY copyright "tarena.com.cn (c) 2011">
+       
+       &copyright;
+            
+
+   XPath
+   -----------------------------------------------
+      /email
+      /email/from
+      /email/to-email/to
+      /email/@date
+      /email/@time
+      //to
+      
+      
+   共多参考 www.w3school.com.cn
+   ----------------------------------------------
+   
+   
+
+
+
+JAVA 处理XML
+=================================================
+  SAX - Simple API for XML
+  -----------------------------------------------
+		String xmlPath = SaxTest.class.getResource("/email.xml").getPath();
+		
+		SAXParserFactory f = SAXParserFactory.newInstance();
+		SAXParser parser = f.newSAXParser();
+		EmailHandler h = new EmailHandler();
+		parser.parse(new File(xmlPath), h);
+		
+  
+  DOM - Document Object Model
+  -----------------------------------------------
+    DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
+		DocumentBuilder parser = f.newDocumentBuilder();
+		Document doc = parser.parse(new File(xmlPath));
+		
+		//
+		DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = f.newDocumentBuilder();
+		Document doc = builder.newDocument();
+		Element email = doc.createElement("email");
+		Text emailText = doc.createTextNode("abc@abc.com");
+		doc.appendChild(email);
+		email.appendChild(emailText);
+		
+		//
+		com.sun.org.apache.xml.internal.serialize.OutputFormat fmt = 
+			new OutputFormat();
+		fmt.setIndent(4);
+		fmt.setEncoding("UTF-8");
+		
+		XMLSerializer s = new XMLSerializer(new FileOutputStream("d:/e.xml"),fmt);
+		s.serialize(doc);    
+  
+  DOM4J
+  -----------------------------------------------
+    

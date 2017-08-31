@@ -1,0 +1,36 @@
+<html>
+<head>
+	<title>rate</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.raty.min.js"></script>
+</head>
+<body>
+	<!-- 打分 ----------------------------------------------------------- -->
+	<div id="default"></div>
+	score:<input type="text" id="setScore" readOnly="true" />
+	
+	<!-- 显示分数 ----------------------------------------------------------- -->
+	<div id="fixed"></div>
+	<input type="text" id="getScore" value="3" readOnly="true" />
+	
+	
+	
+	<script type="text/javascript">
+		$(function(){
+			$('#default').raty({
+				half:  true,			  
+				click: function(score){
+					document.getElementById('setScore').value = score;
+				}
+			});
+			
+			$('#fixed').raty({
+			  readOnly:  true,
+			  start:     document.getElementById('getScore').value,
+			  number: 3
+			  });
+		});
+	</script>
+</body>
+</html>

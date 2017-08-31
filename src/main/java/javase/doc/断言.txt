@@ -1,0 +1,58 @@
+断言(assert)：用来调试、测试代码
+	格式：
+		assert 布尔表达式: 字符串  (如果布尔表达式为false时，这个字符串才会显示)
+	注意：
+		assert默认是关闭的，使用时需要使用" -ea "进行开启，" -da "是关闭，如：java -ea 类名。
+		断言是以异常方式去执行的，当断言的布尔表达式为假时，会中断代码。
+		不能继承性的打开(java -ea:类名  这样只能打开该类，如果存在父类，不会去打开父类)
+
+
+
+断言机制：
+编写代码时，我们总会作出一些假设，断言用于捕捉这些假设，可以看作异常处理的一种高级形式
+
+测试时：启用
+部署时：禁用
+//类似面向切面编程
+
+Junit（单元测试）必须启用断言
+
+
+断言(assert)：用来调试、测试代码
+	格式：
+		assert 布尔表达式: 字符串  (如果布尔表达式为false时，这个字符串才会显示)
+	注意：
+		assert默认是关闭的，使用时需要使用" -ea "进行开启，" -da "是关闭，
+		如：java -ea 类名。
+		断言是以异常方式去执行的，当断言的布尔表达式为假时，会中断代码。
+		不能继承性的打开(java -ea:类名  这样只能打开该类，如果存在父类，不会去打开父类)
+		
+		
+举例：
+public class Test {
+	public static void main(String[] args){
+		assert 1+1==1:"false";
+		System.out.println("1");
+	}
+}
+
+Eclipse中使用断言:
+Run As-->Run Configurations-->(x)=Arguments--VM arguments--[添加-ea]/[添加-da]	
+
+
+
+
+two forms：
+assert Expression1; 
+assert Expression1 : Expression2;
+Expression2不可以为返回类型为void的方法
+Note that, in the second form; if the second part of the statement is a method, then must return a value, void is not allowed. 	
+
+
+
+
+
+
+
+
+

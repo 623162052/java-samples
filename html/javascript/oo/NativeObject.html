@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	/*
+		built-in Object
+	*/
+	var obj = new Object();
+	obj = null;					//destroy Object
+	
+	var maxNumber = Number.MAX_VALUE;
+	//alert(maxNumber);
+	var num = new Number(3);
+	//alert(num.valueOf());		//得到num的原始值
+	
+	
+	/*
+		instanceof, typeof
+	*/
+	var strObj = new String("foo");
+	//alert(strObj instanceof String);	//tree
+	//alert(typeof strObj);				//object
+	
+	
+	/*
+		delete
+	*/
+	var oo = new Object();
+	oo.name = "foo";
+	oo.sex = "male";
+	//alert(oo.name);	//foo
+	delete oo.name;	//delete只能删除自己定义的属性和方法
+	//alert(oo.name + " - " + oo.sex);	//undefined
+	
+	/*
+		ToBolean操作
+			Undefined 	false 
+			Null 		false 
+			Boolean 	结果等于输入的参数（不转换） 
+			Number 		如果参数为 +0, -0 或 NaN，则结果为 false；否则为 true。 
+			String 		如果参数为空字符串，则结果为 false；否则为 true。 
+			Object 		true 
+	*/
+	if(!undefined && !null && !NaN && -1 && !-0 && (new String())){
+		//alert("get fasle");
+	}
+	
+	/*
+		arguments
+	*/
+	function sayHi(){
+		//alert("arguments length: " + arguments.length);
+		if(arguments[0] == "start"){
+			//alert("arguments[0]");
+		}
+		if(arguments[1] == "end"){
+			//alert("arguments[1]");
+		}
+	}
+	sayHi("start");
+	sayHi("start", "end");
+	sayHi("a",1,"2");
+	
+	/*
+		Function	可以表示开发者定义的任何函数
+	*/
+	var godFoo = new Function("name", "age", "alert(\"Info:\" + name + \" - \" + age);");
+	//godFoo("Y", 12);
+	
+	var ooFoo = function(){
+		alert("ooFoo");
+	};
+	ooFoo();
+	
+	/*
+		closure
+		闭包:函数可以使用函数之外定义的变量
+	*/
+	var iNum = 10;
+	
+	function addNum(iNum1, iNum2){
+		function doAdd(){
+			return iNum1 + iNum2 + iNum;
+		}
+		return doAdd();
+	}
+	
+	//alert(addNum(1, 2));
+	
+	
+	/*
+		顶层函数
+			decodeURI() 			解码某个编码的 URI
+			decodeURIComponent() 	解码一个编码的 URI 组件 
+			encodeURI() 			把字符串编码为 URI
+			encodeURIComponent() 	把字符串编码为 URI 组件 
+			escape() 				对字符串进行编码 
+			eval() 					计算 JavaScript 字符串，并把它作为脚本代码来执行
+			getClass() 				返回一个 JavaObject 的 JavaClass 
+			isFinite() 				检查某个值是否为有穷大的数
+			isNaN() 				检查某个值是否是数字
+			Number() 				把对象的值转换为数字  
+			parseFloat() 			解析一个字符串并返回一个浮点数 
+			parseInt() 				解析一个字符串并返回一个整数 
+			String() 				把对象的值转换为字符串 
+			unescape() 				对由 escape() 编码的字符串进行解码
+			
+		顶层属性
+			Infinity 				代表正的无穷大的数值
+			java 					代表 java.*包层级的一个 JavaPackage
+			NaN 					指示某个值是不是数字值
+			Packages 				根 JavaPackage对象
+			undefined 				指示未定义的值
+
+
+	*/
+	
+	
+	/*
+		创建类方式一:	原型方式
+	*/
+	function Car(){
+	}
+	
+	Car.prototype.color = "yellow";
+	Car.prototype.weight = "200Kg";
+	Car.prototype.drive = function(){
+		alert("drive car");
+	};
+	
+	var ooCar = new Car();
+	//alert(ooCar.color);
+	//ooCar.drive();
+	
+	
+	/*
+		创建类方式二:	构造函数方式
+	*/
+	function Bike(bColor, bWeight){
+		this.bColor = bColor;
+		this.bWeight = bWeight;
+		this.bRide = function(){
+			alert("ride " + this.bColor + " bike");
+		};
+	}
+	
+	var ooBike = new Bike("black", "100Kg");
+	//ooBike.bRide();
+	
+	
+	/*
+		创建类方式三:	工厂方式
+	*/
+	function createObj(cName, cAge){
+		var cObj = new Object();
+		cObj.name = cName;
+		cObj.age = cAge;
+		cObj.print = function(){
+			alert(this.name + " - " + this.age);
+		};
+		return cObj;
+	}
+	
+	var oObj = createObj("A","1Kg");
+	//oObj.print();
+	
+	/*
+		prototype
+	*/
+	
+	//继承
+	Object.prototype.sayHello = function(){
+		alert("sayHello from Obejct");
+	};
+	var ooxoo = new String();
+	ooxoo.sayHello();//从Object继承sayHello
+	
+	//重写
+	Object.prototype.toString = function(){
+		return "override toString";
+	};
+	var oxObj = new Object();
+	var ccStr = new String();
+	alert(oxObj.toString() + " - " + oxObj.toString());
+	
+	/*
+		极晚绑定
+	*/
+	var o = new Object();
+
+	Object.prototype.sayHi = function () {
+	  alert("hi");
+	};
+
+	o.sayHi();
+
+
+	
+</script>
+</head>
+<body>
+	<!-- 
+		void
+	 -->
+	<a href="javascript:window.open('about:blank')">Click</a>
+	<a href="javascript:void(window.open('about:blank'))">Click</a>
+</body>
+</html>
+
+<!-- Native Object
+	•Object
+	•Function
+	•Array
+	•String
+	•Boolean
+	•Number
+	•Date
+	•RegExp
+	•Error
+	•EvalError
+	•RangeError
+	•ReferenceError
+	•SyntaxError
+	•TypeError
+	•URIError
+ -->

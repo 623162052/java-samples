@@ -1,0 +1,32 @@
+-------------------------------------------刷新iframe
+<iframe id="myframe" width="100%" frameBorder="0" src="test.html" scrolling="no"></iframe>
+<input type="button" onclick="javascript:refreshFrame();" value="Refresh Frame" />
+	<script type="text/javascript">
+	<!--
+	function refreshFrame(){
+	document.getElementById('myframe').contentWindow.location.reload(true);
+	}
+	//-->
+	</script>
+
+-------------------------------------------子iframe调用父页面js
+document.getElementById('titleIframe').contentWindow.runquery();
+
+
+--------------------------------------------刷新iframe：
+document.getElementById("titleIframe").src = "<%=request.getContextPath()%>/cs/ed/exam/ExamInfoShow.jsp?artExamId=" + examinationId;
+
+
+---------------------------------------------层级
+iframe:							属于当前窗口
+<frameset cols="120,*">			1.html中需要使用top才能获取父窗口
+  <frame src="1.html">
+  <frame src="2.html">
+</frameset>
+
+<jsp:include>					属于当前窗口
+
+
+---------------------------------------------------------------
+父页面调用iframe的js方法
+document.getElementById('fixedQuestionnaireFrame').contentWindow.query();

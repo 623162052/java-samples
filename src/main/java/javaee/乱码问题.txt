@@ -1,0 +1,51 @@
+处理乱码：
+	过滤器中设置只能处理doPost提交
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+	doGet提交
+		String categoryName = new String(request.getParameter("categoryName").getBytes("ISO-8859-1"), "UTF-8");
+
+--------------------------------------------------------
+三个地方会出现乱码：
+		    1.页面
+		    2.类
+		    3.数据库
+		    4.容器
+		    5.本来就是乱码
+
+几种中文编码方式：
+GB2312		只能显示4000简体汉字
+GBK		8000简体中文汉字
+GB18030		8000-10000简体汉字+5000繁体汉字
+big5		繁体中文汉字【tw，澳门，香港】
+
+
+安装数据库 指定utf-8，使用第三方工具创建数据库时指定utf-8
+
+
+JSP原来有的中文输出：<%@ page contentType="text/html; charset=GBK" %>
+
+Servlet原来有的中文输出(doGet和doPOst):response.setContentType(“text/html;charset=UTF-8”);
+
+Servlet从网页获取中文输出(doGet和doPost)：先按ISO-8859-1获得字节流，再按UTF-8得到String
+				 sname = new String(sname.getBytes("ISO-8859-1"),"UTF-8");
+				 spass = new String(spass.getBytes("ISO-8859-1"),"UTF-8");
+
+Servlet从网页获取中文输出(doPost)：request.setCharacterEncoding("GBK");
+
+JSP之间传递参数中文问题：在传递的jsp里加：request.setCharacterEncoding("UTF-8");
+
+----------------------------
+JSP传递乱码
+java.net.URLEncoder
+java.net.URLDecoder
+
+
+------------------------------
+5.中文乱码
+
+   1）编码同一
+   2）使用Filter
+      request.setCharacterEncoding("GBK");
+		  response.setContentType("text/html;charset=gbk");
+		  要第一次使用request和response的时候设置

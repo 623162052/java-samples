@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>DOM Event</title>
+<script type="text/javascript">
+	document.onmousedown=click;
+	
+	function click(){
+		if(event.button == 2){
+			alert("鼠标右键");	
+		}
+		if(event.button == 1){
+			alert("鼠标左键");	
+		}
+		if(event.button == 4){
+			alert("鼠标中键");	
+		}
+		
+	} 
+</script>
+</head>
+<!-- onload:		页面或图像完成加载 -->
+<body onload="alert('onload');" onunload="window.open('http://www.baidu.com');">
+
+<!-- onblur:			失去焦点 -->
+<!-- onchange:			域的内容发生改变(失去焦点后判断内容是否改变,可以用onkeypress代替)-->
+<!-- onkeydown:			某个键盘按键被按下 -->
+<!-- onkeypress:		某个键盘按键被按下并松开 -->
+<input type="text" value="text_button" 
+	onblur="alert('onblur');" 
+	onchange="alert('onchange');" 
+	/>
+<input type="button" value="onkeydown" 
+	onkeydown="alert('onkeydown');"  
+	/>
+<input type="button" value="onkeyup" 
+	onkeyup="alert('onkeyup')"
+	/>
+<input type="button" value="onkeypress" 
+	onkeypress="alert('onkeypress');"  
+	/>
+
+<!-- onclick:			对象被左击 -->
+<!-- ondbclick:			对象被两次左击 -->
+<!-- onfocus:			元素获取焦点 -->
+<input type="button" value="onclick" 
+	onclick="alert('onclick');"  
+	/>
+<input type="button" value="ondbclick"   
+	ondblclick="alert('ondbclick');"
+	/>
+<input type="button" value="onfocus"   
+	onfocus="alert('onfocus');"
+	/>
+	
+<!-- onmouseover:	鼠标移到某元素之上 -->
+<!-- onmouseup:		事件会在鼠标按键被松开时发生 -->
+<input type="button" value="onmouseover"   
+	onmouseover="for(var i=0;i<100; i++){this.value=i;}"
+	/>	
+<input type="button" value="onmouseup"   
+	onmouseup="alert('onmouseup');"
+	/>	
+<input type="button" value="onmousedown"   
+	onmousedown="click();"
+	/>	
+
+	
+<!-- reset:			事件会在表单中的reset按钮被点击时发生 -->
+<!-- onsubmit:		事件会在表单中的submit按钮被点击时发生 -->
+<form onreset="alert('form will be reset');" action="http://www.baidu.com/" onsubmit="return false;">
+	Name <input type="text" name="fname" value="John" />
+	<input type="submit" value="submit" />
+	<input type="reset" value="Reset" />
+</form>
+</body>
+</html>

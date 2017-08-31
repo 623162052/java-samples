@@ -1,0 +1,4 @@
+	attr();					设置样式
+	removeAttr();
+	addClass();				追加样式
+	removeClass();

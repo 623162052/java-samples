@@ -1,0 +1,57 @@
+Filter步骤：
+	1.创建ImplFilter，实现Filter接口，实现方法
+	2.配置web.xml
+		【过滤顺序：按xml里<filter-mapping>配置的顺序】
+		【一个filter可以映射多个filter-mapping】
+		【多个Filter组成链式过滤器，request/response后依次执行多个filter】	
+			<filter>
+				<filter-name>FirstFilter</filter-name>
+				<filter-class>filter.FirstFilter</filter-class>
+				<!--可以在init()方法中获得：config.getInitParameter("a")-->
+				<init-param>
+					<param-name>a</param-name>
+					<param-value>b</param-value>
+				</init-param>
+			</filter>
+			<filter-mapping>
+				<filter-name>FirstFilter</filter-name>
+				<!-- 对当前工程下的任何一个页面发出请求，此filter都会生效 -->
+				<url-pattern>/*</url-pattern>
+			</filter-mapping>
+	3.
+-----------------------------------
+
+
+	
+
+------------------------------------
+过滤器的生命周期
+	init()		//服务器开启时调用
+					初始化多个Filter的init();
+	doFilter()	
+				请求: 先执行chain.doFilter(request, response);之前的
+					执行chain.doFilter(request, response);
+				响应：执行chain.doFilter(request, response);之后的
+	destroy()
+------------------------------------
+
+
+
+
+
+
+过滤器可用于权限控制、乱码处理
+
+
+4.Filter
+
+ 1）步骤
+    新建类  implements Filter
+    实现    doFilter
+    配置web.xml
+ 2)Filter的执行顺序取决于<filter-mapping>
+
+
+
+
+

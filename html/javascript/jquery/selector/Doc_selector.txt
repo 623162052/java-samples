@@ -1,0 +1,39 @@
+﻿基本选择器
+	$("#idName")
+	$(".claaName")
+	$("element")								匹配指定的元素
+	$("*")										匹配所有元素
+	$("selector1,selector2,...,selectorn")		将每一个选择器匹配到的元素合并到一起返回
+
+层级选择符
+	$("a b")    选取a元素中所有的b元素
+	$("a > b")	选取a元素中所有的直接子元素
+	$("a + b")	选取紧接在a后的b元素
+					等价于：	$("a").next("b");
+	$("a ~ b")	选取a后所有的b元素
+					等价于：	$("a").nextAll("b");
+					另一个方法： $("a").siblings("b"); 与a同辈的所有b元素
+					
+过滤选择器
+	基本过滤
+	内容过滤
+	可见性过滤
+		$(":hidden")		选取所有不可见的元素	
+		$(":visible")		选取所有可见的元素
+			$("div:visible")	选取div中所有可见的元素
+	属性过滤
+		$("[id]")			选取拥有属性id的元素
+			[attribute]
+			[attribute=value]
+			[attribute!=value]
+			[attribute^=value]	选取属性的值以value开始的元素
+			[attribute$=value]	选取属性的值以value结束的元素
+			[attribute*=value]	选取属性的值含有value的元素
+			[selector1][selector2]	用属性选择合成器合并成一个复合属性选择器
+				$("[id][title=test]")	选择拥有属性id和title，并且title="test"的元素
+	子元素过滤
+	表单对象属性过滤器		
+		$(":enabled")	选取所有可用元素
+		$(":disabled")	选取所有不可用元素
+		$(":checked")	选取所有被选中元素(单选框，复选框)
+		$(":selected")	选取所有被选中元素(下拉菜单)

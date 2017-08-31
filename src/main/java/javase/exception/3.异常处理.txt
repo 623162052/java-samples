@@ -1,0 +1,63 @@
+
+异常处理的机制：
+当一个方法中有一条语句出现了异常，它就会throw（抛出）一个异常对象，然后后面的语句不会执行，
+而返回上一级方法，其上一级方法接受到了异常对象之后，有可能对这个异常进行处理(进行处理则不会上抛)，
+也可能将这个异常传到它的上一级，如果最上一级(main方法)不处理就会传给虚拟机，虚拟机就会终止程序的运行。
+
+
+包括：异常处理、自定义异常	
+									 
+	Throwable|--Error|--ThreadDeath
+			 |		 |
+			 |		 |--VirtualMachineError|--OutOfMemoryError
+			 |							   |--StackOverflowError
+			 |
+			 |
+			 |--Exception|--其他Exception-----IOException|--FileNotFoundException
+						 |			  					 |--EOFException
+						 |
+						 |--RuntimeException|-ArithmeticException //出现异常的数学运算条件
+											|-NullPointerException
+											|-IllegalArgumentException  //表明向方法传递了一个不合法或不正确的参数
+											|-IndexOutOfBoundsException
+											|-ArrayStoreException  //试图将错误类型的对象存储到一个对象数组时抛出的异常
+											|-ClassCastException	//当试图将对象强制转换为不是实例的子类时，抛出该异常
+	异常处理是通过5个关键字来实现的：
+				try[执行可能产生异常的代码]
+				catch[捕获异常]				//可以在此用Log4j
+				finally[无论是否发生异常，代码总能执行]
+				throw[手动抛出异常]
+				throws[声明方法可能要抛出的各种异常]【可以声明多个异常】
+				printStackTrace()		//打印错误代码
+				getMessage()
+		
+		catch 中异常的顺序必须由小到大【当然可以有并列】，try-catch可以嵌套
+		catch 中的异常类型要比 try 中产生的类型范围广【可以相等】，不然就不能捕获到
+		
+		注意：
+		如果 try catch 中，catch没有捕获到异常但却是发生了异常，则由系统捕获	
+		对于运行时异常，可以不进行捕获；对于非运行时异常，需进行捕获或继续向外抛出	
+		if else的性能比Exception强很多，但If else实现比Exception复杂很多，同时if else是过程化语言的产物，Exception是面向对象的产物
+		方法的覆盖中，如果子类的方法抛出的例外是父类方法抛出的例外的父类型，那么编译就会出错：子类无法覆盖父类。
+		子类抛出的例外或者与父类抛出的例外一致，或者是父类抛出例外的子类型，或者子类型不抛出例外。
+		如果父类型无throws时，子类型也不允许出现throws。此时只能使用try catch。
+		try和finally里都有异常，并且两处的异常不处理，finally里的异常会覆盖try里的异常然后抛出
+		所有的方法默认throws RuntimeException
+		重写方法时，父类方法不抛出异常，而之类方法需要抛出异常时，可以try、catch向外抛RuntimeException【RuntimeException不检查异常】
+		
+		原则：
+			异常能处理的就捕获，因为异常影响性能
+			不能处理的就抛出去，异常应尽量抛到表示层，在界面有反应
+		
+		使用异常机制的原则
+			1.	异常不能替代简单的测试【异常效率比较低】
+			2.	不要过分细化异常
+			3.	利用异常层次结构
+			4.	不要压制异常
+			5.	在检测错误时，苛刻比放任更好
+			6.	不要羞于传递异常
+		
+		
+		
+			
+			

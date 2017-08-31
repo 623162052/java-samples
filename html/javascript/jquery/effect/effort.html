@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Untitled Document</title>
+		<script type="text/javascript" src="../lib/jquery-1.6.1.js"></script>
+		<script type="text/javascript">
+			//hide
+			$(document).ready(function(){
+				$('.ex .hide').click(function(){
+					//这样写，被隐藏的只会是被点击的那个.ex，不会影响到其他.ex
+					$(this).parents('.ex').hide('slow');
+					//这样写所有.ex都会生效
+					//$('.ex').hide('slow');
+				});
+			});
+			//-------------------------------------
+			//slideToggle
+			$(document).ready(function(){
+				$('.flip').click(function(){
+					$('.panel').slideToggle('slow');
+				});
+			});
+			//-------------------------------------
+			//fadeTo
+			$(document).ready(function(){
+				$('button').click(function(){
+					$('#test').fadeTo('slow',0.2);
+				});
+			});
+			//animate
+			$(document).ready(function(){
+				$('#box').click(function(){
+					$('#box').animate({height:300},'slow');
+					$('#box').animate({width:300},'slow');
+					$('#box').animate({height:100},'slow');
+					$('#box').animate({width:100},'slow');
+				});
+			});
+			
+		</script>
+		
+		<style type="text/css">
+			.panel, .flip{
+				margin: 0px;
+				padding: 10px;
+				text-align: center;
+				background-color: #e5eecc;
+				border: solid 1px #c3c3c3;
+			}
+			div.ex
+			{
+				background-color:#e5eecc;
+				padding:7px;
+				border:solid 1px #c3c3c3;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="box" id="animate" style="background-color: #877c1b; height: 100px; width: 100px;">
+			
+		</div>
+		
+		<hr />
+		
+		<div id="test" style="background-color: gray; width: 300px; height: 300px;">
+			<button type="button">Click to Fade</button>
+		</div>
+		
+		<hr />
+		
+		<div class="panel">
+			<p>Because of you, Hello world, What are you fucking doing now?</p>
+			<p>If you have any problem, please don't hesitate to let me know in order I can try to help you out.</p>
+		</div>
+		<p class="flip">Show/Hide panel</p>
+		
+		<hr />
+		
+		<h3>Island Trading</h3>
+		<div class="ex">
+		<button class="hide" type="button">Hide me</button>
+		<p>Contact: Helen Bennett<br /> 
+		Garden House Crowther Way<br />
+		London</p>
+		</div>
+		
+		<h3>Paris Trading</h3>
+		<div class="ex">
+		<button class="hide" type="button">Hide me</button>
+		<p>Contact: Marie Bertrand<br /> 
+		265, Boulevard Charonne<br />
+		Paris</p>
+		</div>
+
+	</body>
+</html>

@@ -1,0 +1,8 @@
+var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var txtstream = fso.OpenTextFile(filePath, 1, false);	//1:只读		false：不存在时不创建文件
+		while(!txtstream.atEndOfLine){
+			txtResult += "<div>" + txtstream.readLine() + "</div>" + "<br />";
+		}
+		txtstream.close();
+		txtstream=null;
+		fso=null;

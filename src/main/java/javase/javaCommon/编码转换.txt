@@ -1,0 +1,24 @@
+byte[]     temp1,temp2;  
+  temp1   =   yourstring.getBytes("8859-1");  
+  temp2   =   yourstring.getBytes("gb2312");  
+  String   compstring1,compstring2;  
+  compstring1   =   new   String(temp1);  
+  compstring2   =   new   String(temp2);  
+  if(yourstring.equals(temp1))  
+  {  
+        //8859-1;  
+  }
+  if(yourstring.equals(temp2))  
+  {  
+        //gb2312;  
+  }   
+  
+  
+  
+  
+
+  String str = "&#x6D4B;&#x8BD5;&#x767D;&#x540D;&#x5355;";
+        str = StringEscapeUtils.unescapeHtml(str);
+  
+  
+  

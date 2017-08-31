@@ -1,0 +1,367 @@
+1.数据类型		
+	JAVA里面所有的数都是带符号的	     	     
+		boolean[大小不明确][不能强制转换][默认 false]
+		char(2)[可以表示一个汉字][16位Unicode][默认 '\u0000']【char无符号】
+		byte(1)[默认 0]
+		short(2)[默认 0]
+		int(4)[默认 0]
+		long(8)[L][默认 0L]
+		float(4)[F][默认 0.0F]
+		double(8)[D][默认 0.0D]			
+		
+		全局变量不初始化有默认值，局部变量都必须被初始化
+		大数据：超过double范围，使用字符串类型	
+		尽量节约空间，尽量用字节数小的数据类型
+		
+		
+	Java大数值计算
+			处理任意长度数字序列的值
+			任意精度的整数运算：java.math.BigInteger
+			任意精度的浮点数运算：java.math.BigDecimal
+
+普通数值转为大数值：BigInteger a = BigInteger.valueOf(100);		//a=100;
+大数值加：	BigInteger c = a.add(b); 	//c = a+b;
+大数值乘:	BigInteger d = c.multiply(b.add(BigInteger.a));		//d = c*(b+2);
+
+
+
+******************************
+	基本数据类型转换
+		整形、字符型、浮点型在混合运算中互相转换的原则：
+			1.取值范围小转向取值范围大的--隐式转型 
+				(byte->short、char)---->int->long->float->double
+					[byte和char、short和char，计算时先转换为int类型]
+				A-Z： 65-90;	a-z ： 97-122
+				     	
+			2.取值范围大转向取值范围小的---强制转型
+				[需要加上强制转换符，对于整数直接砍掉字节，可能造成精度降低或益处]
+				[强制类型转换两边都需是基础类型或都是对象,包装类可以实现基础类型到对象的转换]
+					[double d2=1e200;	float f2=(float)d2;//会产生溢出]
+					[byte b1=67;	byte b2=89;	byte b3=(byte)(b1+b2); 	//系统自动把所有数都转换为int型; 
+																		//127+1=-128;
+																		//int占4字节,byte占1字节,砍掉多余3字节]
+			
+			3.多种类型混合运算时，系统自动将所有数据转换成取值范围最大的类型再计算
+				[表达式有String，则其他自动转成String]
+				[表达式有doble型，其他数据自动转换成double]
+				[表达式有float型，其他数据自动转换成float      String-double-float-long-int]
+			
+			4.整数常量默认为int；	浮点数默认为double
+				数字直接量：
+				1.写整数，默认是int类型			
+					int i = 83567;
+				2.对于byte,short,char类型，可以直接取适当值
+					byte b = 103;
+					short s = 32000;
+					char c = 65535;
+				3.对于long,添加后缀L
+					long l = 210L;
+				4.写浮点数，默认是double类型也可以添加d,需添加f后缀后是float类型
+					float f = 3.14f;
+				5.double和float的特殊值
+					double d = 3.14/0;		//不会发生异常，得到Infinity --- 无穷大
+					double d2 = Math.sqrt(-4);	//不会发生异常，得到NaN --- Not a Number
+					Double.isInfinite(d1) = true;
+					Double.isNaN(d2) = true;
+	
+********************************
+关键字：
+instanceof：运算符只能用于对象引用变量，用来检查是否是某种类型
+	如：s instanceof String 判断s是否为String类型
+
+native:调用本地操作系统，c/c++写的
+
+********************************
+包装类
+	[基本类型转变成对象]
+	[除Float,Double外，其他包装类都是用常量池,String类也使用常量池]
+	Boolean,Character,Byte,Short,Integer,Long,Float,Double
+	装箱:基本类型转向对象   Integer varOne = 10;	【自动装箱】	
+	拆箱:对象转向基本类型   varOne++;		【自动拆箱】
+	
+	方法： 	Integer.parseInt("453");
+			Integer.toBinaryString(255);
+			Integer.toOctalString(377);
+			Integer.toHexString(65535);
+			Integer.intValue();			//以int类型返回此Integer实例的值
+			Integer.valueOf();			//得到Integer的实例
+		
+*********************************************************************************************************************************************
+2.运算符
+==:地址判断  equals:值判断
+			
+i++,i--:先取值，后自加自减 
+++i,--i:先自加自减，后取值
+i=i1++;
+先把i1值赋给i,i1再加1
+
++还可用于对字符串进行连接操作，String = "hello" + "world";
++运算符两侧只要有一个是字符串类型,系统会自动将另一个操作数转换为字符串然后再进行连接
+
+当进行打印的时候无论任何类型都自动转换为字符串进行打印.System.out.println(c);先把c转换成字符串再进行打印.
+声明任何对象并赋值null后，打印该对象都输出null
+----------------------------------------
+逻辑运算符
+短路运算：确定表达式值后，不计算表达式后面的部分
+&& ||	短路预算符
+& |	非短路运算符
+
+-----------------------------------------
+位运算:	位运算效率最高
+&	按位与    
+|	按位或
+~	按位取反
+	
+
+----------例子：权限设置
+		int caiwuzhuguan = 1;
+		int caikuai = 2;
+		int chuna = 4;
+		int caiwuzhang = 8;
+		//赋给zhangsan权限		
+		int zhangshan = caiwuzhuguan | caikuai | chuna |caiwuzhang;
+		//判断是否有权限
+		if(caiwuzhang & zhangsan) == caiwuzhang{
+			//......
+		}
+
+	添加权限 zhangsan = zhangsan | caiwuzhang;
+	删除权限 zhangsan = zhangsan & (~caiwuzhang);
+
+--------------------------------------------------------------------
+移位运算符
+	<<	左移位，在右侧（低位）补0		0001---->0010
+	>>	有符号位右移，符号位是0在左侧补0，符号位是1在左侧补1		0001---->1000
+	>>>	无符号右移，无论正负，高位插0
+	
+	例子：取rgb的各个值0x00cc9933
+		private static void test2(int rgbColor){	
+		//0x00cc9933十六进制
+		//00000000 cc 99 33				
+		int r = (rgbColor >>> 16) & 0x000000FF; ;	
+		int g = (rgbColor >>> 8) & 0x000000FF;		
+		int b = rgbColor & 0x000000FF; 
+
+*******************************************************************************************************************************************
+3.字符串
+		判断一个字符串是否为空：if(string!=null && string!="");其他类型一样，先判断是否为null
+		字符串的本质是字符数组
+		
+		String类的对象是字符串常量; StringBuilder是线程安全的字符串变量; StringBuffer是线程不安全的字符串变量
+		StringBuilder varStringOne = new StringBuilder("a");varStringOne.append(" is not b");	
+			//用String定义字符串拼加，常量池垃圾变多，性能影响大			
+		StringBuilder和StringBuffer不能通过equals比较值[StringBuilder和StringBuffer都没实现equals]
+		
+		String varString = "abc";    varString是引用变量，abc是常量
+		声明变量不分配内存空间，创建变量(new)才分配内存空间
+		
+		字符串解析：StringTokenizer import java.util.*;	   		
+		String-split
+		例子{
+			"boo:and:foo"	
+			o 5 { "b", "", ":and:f", "", "" }
+			参数5控制执行过程，<=0时，执行尽可能多次，>0时，执行n-1次，得到n个元素
+			第一个空字符串是第一个两个o之间的
+			第二个空字符串是第二个两个o之间的
+			第三个空字符串是结尾空字符串
+			}	
+	
+	字符串：
+		1.底层是char数组
+		2.String对象不可变
+		3.字符串方法
+			charAt()			指定索引位置的字符
+			endsWith()			
+			equals()
+			getBytes()			得到一个byte数组，从Unicode到系统默认编码,所以英文字符从两个字节专程一个字节
+									GB2312：中文两个字节表示
+									UTF-8 ：中文三字节表示	
+			indexOf()			查找字符串的索引
+			length()
+			replaceAll()
+			replace()
+			split()				拆分字符串
+			startsWith()
+			substring()			得到字符串的子串
+			trim()				去掉字符串前后空白
+			toCharArray()		得到字符数组	
+		
+*********************************************************************************************************************************************
+
+4.控制语句
+	switch，case可使用 byte,char,short,int,enum 类型; 
+	switch中一个case语句没接break则会接着执行下一个case,直到遇到break;
+	
+	死循环作用：服务器监听，一直收发
+	标签:用于退出循环，xxx:    break xxx;
+		例如：
+
+			循环嵌套跳转
+				flag:
+				for(){
+				   for(){
+					....
+					break flag;		//跳出循环
+					}
+					}
+
+---------------------------------
+for循环
+int[] arr = {1,2,3,4,5,9};
+for(int i : arr){
+	System.out.println(i);			//注意输出是i
+}
+
+String[] stringArray = new String[]{"ab","bc","cd","de"};
+for(String s : stringArray){		//可以是对象类型
+	System.out.println(s);			//输出是s
+}
+*********************************************************************************************************************************************
+5.数组
+	数组工具类：		java.util.Arrays.sort();
+						java.util.binarySearch();
+						java.lang.System.arrycopy();
+						
+	数组定义:  	1. int[] a = new int a[10];
+				2. int[] a = {1,2,3,4};		//不推荐
+				3. int[] a = new int[]{1,2,3,4,5};
+				
+				4. int[][] arr = new int[4][4];
+				5. int[][] arr = new int[2][];		//arr[0],arr[1]都是null，需要使用时需先创建：arr[0] = new int[10];此时arr[1]还是null
+				[二维数组的引用放在栈空间，里面的一维数组的引用和数据都放在堆空间]
+	
+	java.util.Date arr4 = new java.util.Date[10];		//数组的每项都是null
+	声明并创建一个基础类型局部数组，在初始化时，初始化其中的一部分元素后，没被初始化的元素会被赋默认值
+	但是是对象数组时，没初始化的元素都为null
+*********************************************************************************************************************************************	
+6.枚举（enum）
+		枚举是一种类型
+		枚举不能在方法体内定义
+		
+	枚举
+		枚举的作用：比在接口中声明一串常量更安全
+		在接口中声明一串常量：方法调用时输入没定义的常量的int值不报错
+		但声明枚举类型后，只能输入枚举中定义的
+		
+		public enum Color {
+			//每个枚举项都是Color类型的实例
+			RED, BLUE, YELLOW, WHITE, BLACK
+		}	
+		-------------
+		public interface ChangLiang {
+			public static final int RED = 1;
+			public static final int BLUE = 2;
+		}
+		---------------
+		public class A {
+			public void print(Color color){
+				System.out.println(color);
+			}
+			public void print(int color){
+				System.out.println(color);
+			}
+			public static void main(String[] args) {
+				A obj = new A();
+				obj.print(5);	//第一个参数可以写任意整数。接口中的常量调用：	接口名.常量
+				obj.print(Color.RED); //使用枚举必须写已经声明的，所以更安全
+			}
+		}		
+举例：	
+enum Color{YELLOW,RED,BLACK,WHITE};				
+Color color1 = Color.YELLOW;
+Color color2 = Color.RED;	
+		if(color1==color2)
+			System.out.println("==相等");
+		else
+			System.out.println("==不相等");
+		
+		if(color1.equals(color2))
+			System.out.println("equal相等");
+		else
+			System.out.println("equal不相等");		
+		if(color1.ordinal() < color2.ordinal())
+			System.out.println(color1 + ">" + color2);
+
+-----------------------------------------------------------
+参数传递：
+	传值（地址的副本也是值）
+		基础类型：传递变量的值
+		对象类型：传递引用指向对象的内存地址
+-----------------------------------------------------------		
+静态导入：
+	程序可读性变差
+		import static java.lang.Math.*;
+		不用再Math.random();可以直接random();
+----------------------------------------------------------
+可变长参数：
+	变长参数必须是参数列表的最后一个参数
+	只能有一个可变长参数
+	void a(int... a){
+	}
+调用时：
+	obj.a();
+	obj.a(5);
+	obj.a(5,2,3,4);		
+***********************************************************************************************************************************************
+常用类：
+	Java常用类和方法:
+	字符串			String的构造方法把所有的类型转换成字符串数组
+					添加字符串到末端	StringBuffer.append("..");	//线程安全
+										StringBuilder.append("..");	//线程安全				
+					指定地方添加字符串:	StringBuffer.insert(...);	//线程不安全	
+										StringBuilder.insert(...);	//线程不安全	
+					
+	类型转换		八个包装类--Boolean,Byte,Short,Character,Integer,Long,Float,Double
+					字符串数字--> 数字类型：Integer.parseInt(); Double.parseDouble();等
+					
+					解析不同进制的数字：Integer.parseInt("10101010101",2);
+										Integer.parseInt("755",8);
+										Integer.parseInt("123",10);
+					整数数字-->不同进制的字符串：	Integer.toBinaryString(255);
+													Integer.toOctalString(377);
+													Integer.toHexString(65535);
+
+	数学函数类		java.lang.Math[都是static]
+						Math.random（）方法默认生成大于等于0.0小于1.0的double型随机数。即 0<Math.random()<1.0.
+						①	（int）（Math.random（）*n）返回大于等于0小于n之间的随机数；
+						②	m+（int）（Math.random（）*n）返回大于等于m小于m+n（不包括m+n）之间的随机数。
+	日期相关类		System.currentTimeMillis()
+					long System.currentTimeMillis();//返回以毫秒为单位的当前时间,从1970年1月1日零点开始到现在的毫秒值						
+							[long start = System.currentTimeMillis();//这个方法常用计算一段代码所发的时间
+							//程序段…
+							long end = System.currentTimeMillis();
+							long diff = end - start;//程序段执行所用时间]
+					java.util.Date
+					DateFormat / SimpleDateFormat[日期格式化类]
+					Calendar
+	精度计算		BigDecimal
+	数字格式化相关	NumberFormat / DecimalFormat
+
+	数组复制： java.lang.System.arraycopy(.....);
+
+	
+----------------------------------------------------------------------------------------------------------------	
+java.lang
+	java.lang.System
+	java.lang.Math
+	java.lang.包装类
+	java.lang.ClassLoader
+	java.lang.Compiler
+	java.lang.StringBuffer
+	java.lang.StringBuilder
+	java.lang.Thread
+	java.lang.Throwable
+	java.lang.Void
+java.util
+	java.util.Arrays
+	java.util.Date
+	java.util.Scanner
+	java.util.StringTokenizer
+	
+----------------------------------------
+instanceof
+	
+	
+	
+	
+		

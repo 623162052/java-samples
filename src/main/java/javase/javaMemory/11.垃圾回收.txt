@@ -1,0 +1,22 @@
+垃圾回收(Garbage Collection) 
+	[不管是不是强制回收，都不会立即回收，都取决于JVM]
+	[当一个对象的引用不存在，则该对象被认为不再需要，它占有的内存会被释放]
+	[强制垃圾回收：调用System.gc();]
+	[finalize()方法：主要用来释放非java资源，例如文件句柄或window字体字符方法原型,当对象被释放时，将自动调用对象的finalize()]
+		protected void finalize()
+		{//finalization code here}	
+	垃圾显示回收：1.空引用2.为引用变量重新赋值3.隔离引用4.强行回收
+	
+	
+class、方法在内存运行的机制
+内存里分四块区域
+code segment: 存放代码
+data segment: 静态变量 字符串变量
+stack: 局部变量
+heap: new出来的东西
+------------------------------------------
+
+System.gc();
+Runtime.getRuntime().gc();
+
+Object:finalize()

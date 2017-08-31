@@ -1,0 +1,35 @@
+---文档模式-----------------------------------------------------------------------------------------
+http://hi.baidu.com/bluedream_119/item/26db5a73c9774344ee1e532a
+http://www.cnblogs.com/ConjurerYang/archive/2009/08/12/1544251.html
+https://www.google.com.hk/#newwindow=1&q=document.documentElement.clientHeight+0&safe=strict
+
+DocType
+文档模式：IE8标准
+
+
+
+
+设置IE文档版本：<meta http-equiv="X-UA-Compatible" content="IE=8" >
+
+
+
+
+
+
+
+function replaceWhiteSpace(htmlContent){
+	  htmlContent = htmlContent.replace(/(\n)/g, "");
+	  htmlContent = htmlContent.replace(/(\n)/g, "");
+	  htmlContent = htmlContent.replace(/(\t)/g, "");
+	  htmlContent = htmlContent.replace(/>\s*</g, "><");
+}
+
+
+Object.prototype.firstChild = function() {
+	var first = this.firstChild;
+	console.log(first);
+	while (first.nodeType != 3) {
+		first = first.nextSibling;
+	}
+	return first;
+};

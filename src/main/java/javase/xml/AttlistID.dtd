@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="gb2312"?>
+
+<!ELEMENT Customers	(Customer,Order)>
+
+<!ELEMENT Customer	(Name,Age,Sex)>
+<!ELEMENT Name		(#PCDATA)>
+<!ELEMENT Age		(#PCDATA)>
+<!ELEMENT Sex		(#PCDATA)>
+<!ELEMENT Order		(OrderDate,Address)>
+<!ELEMENT OrderDate	(#PCDATA)>
+<!ELEMENT Address	(#PCDATA)>
+
+<!ATTLIST Customer
+	CustomerID		ID		#REQUIRED
+>
+
+<!ATTLIST Order
+	OrderID			ID		#REQUIRED
+	CustomerIDRef	IDREF	#REQUIRED
+>

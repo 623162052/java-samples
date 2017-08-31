@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>布局二</title>
+  <link rel="stylesheet" type="text/css" href="../../common/easyui/themes/cmcui/cmcui.css">
+  <link rel="stylesheet" type="text/css" href="../../common/easyui/themes/cmcui/demo.css">
+  <link rel="stylesheet" type="text/css" href="../../common/easyui/themes/cmcui/iconfont/iconfont.css">
+  <script type="text/javascript" src="../../common/easyui/jquery.min.js"></script>
+  <script type="text/javascript" src="../../common/easyui/jquery.easyui.min.js"></script>
+  <script type="text/javascript" src="../../common/easyui/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>  
+  <!--搜索区-->
+	<div class="panel-search">
+    <form action="" method="post" class="form form-horizontal">
+      <div class="row cl">
+        <label class="form-label col-2">接入编码：</label>
+        <div class="formControls col-2"><input type="text" class="easyui-textbox" data-options="prompt:'输入15位编码'" style="height:30px" ></div>
+        <label class="form-label col-2">渠道类型：</label>
+        <div class="formControls col-2"><select class="easyui-combobox" data-options="panelHeight:'auto'"
+ style="height:30px"><option value="0">选择类型</option><option value="2">网厅</option><option value="3">渠道</option></select></div>
+        <label class="form-label col-2">接入账号：</label>
+        <div class="formControls col-2"><input type="text" class="easyui-textbox" style="height:30px"></div>
+      </div>
+      <div class="row cl">
+        <label class="form-label col-2">接入开始时间：</label>
+        <div class="formControls col-2"><input type="text" class="easyui-datetimebox" style="height:30px"></div>
+        <label class="form-label col-2">接入截止时间：</label>
+        <div class="formControls col-2"><input type="text" class="easyui-datetimebox" style="height:30px"></div>
+        <label class="form-label col-2">持续时间：</label>
+        <div class="formControls col-2"><input type="text" class="easyui-textbox" style="width:60px;height:30px"> - <input type="text" class="easyui-textbox" style="width:60px;height:30px"></div>
+      </div>
+      <div class="row cl">
+        <label class="form-label col-2">接出方式：</label>
+        <div class="formControls col-2"><input type="text" class="easyui-textbox" style="height:30px"></div>
+        <label class="form-label col-2">客户号码：</label>
+        <div class="formControls col-2"><input type="text" class="easyui-textbox" style="height:30px"></div>
+        <label class="form-label col-2">客户姓名：</label>
+        <div class="formControls col-2"><input type="text" class="easyui-textbox" style="height:30px"></div>
+      </div>
+      <div class="mt-10 text-c">
+        	<a href="javascript:void(0)" class="btn btn-secondary radius" ><i class="iconfont iconfont-search2"></i>查询</a>
+          <a href="javascript:void(0)" class="btn btn-default radius" ><i class="iconfont iconfont-zhongzuo"></i>重置</a>
+      </div>
+    </form>
+	</div>
+  
+  <!--表格区-->
+  <div class="cl">
+    <!--按钮操作-->
+    <div class="panel-tool-box cl" >
+        <div class="fl text-bold">接入信息列表</div>
+        <div class="fr">
+        	<a href="javascript:void(0)"  class="btn btn-secondary radius"><i class="iconfont iconfont-daochu"></i>导出</a>
+        </div>
+    </div>
+    <!--表格-->
+    <table class="easyui-datagrid" style=" width:100%;height:270px;"
+        data-options="singleSelect:true,collapsible:true,fitColumns:true,url:'datagrid_data1.json',method:'get',rownumbers:true, pagination:true">
+       <thead>
+        <tr>
+          <th data-options="field:'productid',resizable:false" width="18%">接入编码</th>
+          <th data-options="field:'listprice',resizable:false" width="15%">渠道类型</th>
+          <th data-options="field:'unitcost',resizable:false" width="20%">客户编码</th>
+          <th data-options="field:'attr1',resizable:false" width="20%">接入账号</th>
+          <th data-options="field:'status',resizable:false" width="25%">接入时间</th>
+        </tr>
+       </thead>
+    </table>
+   </div>
+</body>
+</html>
